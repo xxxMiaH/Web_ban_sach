@@ -1,9 +1,15 @@
 import express from 'express';
 import { config } from 'dotenv';
+config();
 import { createStream } from 'rotating-file-stream';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
+
+// Config path for import modules
 import path from 'path';
-config();
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 import { router } from './routes/index.js';
 import { connectDB } from './config/connectDB.js';
@@ -17,6 +23,7 @@ const accessLogStream = createStream('access.log', {
    interval: '1d', // rotate daily
    path: path.join(__dirname, 'log'),
 });
+app.use(cookieParser());
 app.use(
    isProduction
       ? morgan('combined', { stream: accessLogStream })
