@@ -1,8 +1,13 @@
+import { IProduct } from '../interfaces/interfaces.model';
 import { Schema, model } from 'mongoose';
 
-const ProductSchema = new Schema(
+const ProductSchema = new Schema<IProduct>(
    {
       name: {
+         type: String,
+         required: true,
+      },
+      introduction: {
          type: String,
          required: true,
       },
@@ -22,10 +27,14 @@ const ProductSchema = new Schema(
          type: String,
          required: true,
       },
+      stock: {
+         type: Number,
+         required: true,
+      },
    },
    {
       timestamps: true,
    }
 );
 
-export default model('Product', ProductSchema);
+export default model<IProduct>('Product', ProductSchema);
