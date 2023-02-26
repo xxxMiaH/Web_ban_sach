@@ -4,10 +4,7 @@ config();
 
 export const connectDB = async () => {
    try {
-      const isConnect = await mongoose.connect(process.env.MONGO_URI, {
-         useNewUrlParser: true,
-         useUnifiedTopology: true,
-      });
+      const isConnect = await mongoose.connect(process.env.MONGO_URI as string);
 
       if (isConnect) {
          console.log('MongoDB connected');
