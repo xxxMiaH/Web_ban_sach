@@ -11,6 +11,17 @@ class ProductController {
          return res.status(500).send(err.message);
       }
    };
+
+   createAProduct = async (req: Request, res: Response): Promise<Response> => {
+      try {
+         const result = await ProductService.createAProduct(req.body);
+         return res.status(200).json(result);
+      } catch (err: any) {
+         console.log(err.message)
+         return res.status(500).send(err.message);
+      }
+   };
+
 }
 
 export default new ProductController();

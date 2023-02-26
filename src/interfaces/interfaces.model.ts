@@ -12,10 +12,15 @@ export interface ICart {
 
 export interface IProduct {
    name: string;
+   author: string;
    introduction: string;
    description: string;
    price: number;
-   image: string;
+   images: [
+      {
+         url: string;
+      }
+   ];
    category: string;
    stock: number;
 }

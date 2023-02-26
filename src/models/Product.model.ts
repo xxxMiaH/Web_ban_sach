@@ -7,6 +7,10 @@ const ProductSchema = new Schema<IProduct>(
          type: String,
          required: true,
       },
+      author: {
+         type: String,
+         required: true,
+      },
       introduction: {
          type: String,
          required: true,
@@ -23,10 +27,12 @@ const ProductSchema = new Schema<IProduct>(
          type: String,
          required: true,
       },
-      image: {
-         type: String,
-         required: true,
-      },
+      images: [
+         {
+            type: String,
+            required: true,
+         },
+      ],
       stock: {
          type: Number,
          required: true,
