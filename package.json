@@ -7,7 +7,7 @@
       "test": "echo \"Error: no test specified\" && exit 1",
       "tsc": "concurrently \"rimraf build\" \"tsc -p tsconfig.json --watch\"",
       "webpack": "webpack --mode development --config webpack.config.cjs",
-      "start": "tsc -p tsconfig.json npm run webpack node dist/main",
+      "start": "tsc -p tsconfig.json & npm run webpack & node dist/main",
       "dev": "concurrently \"npm run tsc\" \"nodemon --exec babel-node build/server\""
    },
    "keywords": [],
