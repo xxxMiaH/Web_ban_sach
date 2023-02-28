@@ -1,5 +1,6 @@
 import { IProduct } from './../interfaces/interfaces.model';
 import ProductModel from '../models/Product.model';
+import { ObjectId } from 'mongoose';
 
 class ProductService {
    getAllProducts = async (): Promise<object> => {
@@ -38,7 +39,46 @@ class ProductService {
          if (price === undefined || price === null)
             throw new Error('Price is required');
 
-         return await ProductModel.create(data);
+         return {
+            status: 'Create success',
+            data: await ProductModel.create(data),
+         };
+      } catch (err: any) {
+         throw new Error(err);
+      }
+   };
+
+   updateAProduct = async (
+      paramsId: string | ObjectId,
+      data: IProduct
+   ): Promise<object> => {
+      try {
+         await ProductModel.updateOne({ _id: paramsId }, data);
+         return {
+            status: 'Update success',
+            data: await ProductModel.findById(paramsId),
+         };
+      } catch (err: any) {
+         throw new Error(err);
+      }
+   };
+
+   deleteAProduct = async (paramsId: string | ObjectId): Promise<object> => {
+      try {
+         return {
+            status: 'Delete success',
+            data: await ProductModel.deleteOne({ _id: paramsId }),
+         };
+      } catch (err: any) {
+         throw new Error(err);
+      }
+   };
+
+   getAProduct = async (paramsId: string | ObjectId): Promise<object> => {
+      try {
+         const product = await ProductModel.findById(paramsId);
+         if (!product) throw new Error('Product not found');
+         return product;
       } catch (err: any) {
          throw new Error(err);
       }

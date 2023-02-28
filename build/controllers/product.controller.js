@@ -34,6 +34,33 @@ class ProductController {
                 return res.status(500).send(err.message);
             }
         });
+        this.updateAProduct = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield product_service_1.default.updateAProduct(req.params.id, req.body);
+                return res.status(200).json(result);
+            }
+            catch (err) {
+                return res.status(500).send(err.message);
+            }
+        });
+        this.deleteAProduct = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield product_service_1.default.deleteAProduct(req.params.id);
+                return res.status(200).json(result);
+            }
+            catch (err) {
+                return res.status(500).send(err.message);
+            }
+        });
+        this.getAProduct = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const result = yield product_service_1.default.getAProduct(req.params.id);
+                return res.status(200).json(result);
+            }
+            catch (err) {
+                return res.status(500).send(err.message);
+            }
+        });
     }
 }
 exports.default = new ProductController();

@@ -41,7 +41,44 @@ class ProductService {
                     throw new Error('Category is required');
                 if (price === undefined || price === null)
                     throw new Error('Price is required');
-                return yield Product_model_1.default.create(data);
+                return {
+                    status: 'Create success',
+                    data: yield Product_model_1.default.create(data),
+                };
+            }
+            catch (err) {
+                throw new Error(err);
+            }
+        });
+        this.updateAProduct = (paramsId, data) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield Product_model_1.default.updateOne({ _id: paramsId }, data);
+                return {
+                    status: 'Update success',
+                    data: yield Product_model_1.default.findById(paramsId),
+                };
+            }
+            catch (err) {
+                throw new Error(err);
+            }
+        });
+        this.deleteAProduct = (paramsId) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                return {
+                    status: 'Delete success',
+                    data: yield Product_model_1.default.deleteOne({ _id: paramsId }),
+                };
+            }
+            catch (err) {
+                throw new Error(err);
+            }
+        });
+        this.getAProduct = (paramsId) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const product = yield Product_model_1.default.findById(paramsId);
+                if (!product)
+                    throw new Error('Product not found');
+                return product;
             }
             catch (err) {
                 throw new Error(err);

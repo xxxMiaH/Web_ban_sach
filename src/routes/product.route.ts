@@ -7,5 +7,10 @@ router
    .route('/')
    .get(ProductController.getAllProducts)
    .post(ProductController.createAProduct);
+router
+   .route('/:id')
+   .patch(ProductController.updateAProduct)
+   .delete(ProductController.deleteAProduct)
+   .get(ProductController.getAProduct);
 
 export const productRouter = router;

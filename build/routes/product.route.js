@@ -11,4 +11,9 @@ router
     .route('/')
     .get(product_controller_1.default.getAllProducts)
     .post(product_controller_1.default.createAProduct);
+router
+    .route('/:id')
+    .patch(product_controller_1.default.updateAProduct)
+    .delete(product_controller_1.default.deleteAProduct)
+    .get(product_controller_1.default.getAProduct);
 exports.productRouter = router;
