@@ -23,7 +23,7 @@ export const routes = (app: Express) => {
       const token = req.cookies.token;
       res.send(token);
    });
-   app.use('/', (req, res) => {
-      res.send('Hello World!');
-   });
+   // app.use('/', (req, res) => {
+   //    res.send('Hello World!');
+   // });
 };

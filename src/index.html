@@ -12,10 +12,11 @@
    <script>
       fetch('https://api-ebook.cyclic.app/api/products', {
          method: 'POST',
-         credentials: 'same-origin', // include, *same-origin, omit
+         credentials: 'include',
+         mode: 'no-cors',
          headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/json',
-            // 'Content-Type': 'application/x-www-form-urlencoded',
          },
          body: JSON.stringify({
             name: 'tests',
@@ -23,6 +24,12 @@
             description: 'test',
             introduction: 'test',
          }),
-      });
+      })
+         .then(async res => {
+            console.log('K lỗi', await res.json());
+         })
+         .catch(err => {
+            console.log('Lỗi', err);
+         });
    </script>
 </html>
