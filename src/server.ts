@@ -25,20 +25,32 @@ const bootServer = () => {
    });
    app.use(
       cors({
-         credentials: true,
-         origin: 'http://localhost:5173',
-         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-         allowedHeaders: [
-            'Origin',
-            'X-Requested-With',
-            'Content-Type',
-            'Accept',
-            'X-Access-Token',
-            'Authorization',
-         ],
-         preflightContinue: true,
+         // credentials: true,
+         // origin: 'http://localhost:5173',
+         // methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+         // allowedHeaders: [
+         //    'Origin',
+         //    'X-Requested-With',
+         //    'Content-Type',
+         //    'Accept',
+         //    'X-Access-Token',
+         //    'Authorization',
+         // ],
+         // preflightContinue: true,
+         // optionSuccessStatus: 200,
       })
    );
+   app.use((req, res, next) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+      res.setHeader('Access-Control-Max-Age', '1800');
+      res.setHeader('Access-Control-Allow-Headers', 'content-type');
+      res.setHeader(
+         'Access-Control-Allow-Methods',
+         'PUT, POST, GET, DELETE, PATCH, OPTIONS'
+      );
+      next();
+   });
    app.use(cookieParser());
    app.use(
       isProduction
