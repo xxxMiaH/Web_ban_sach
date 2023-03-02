@@ -3,10 +3,16 @@ import { cartRouter } from './cart.route';
 import { productRouter } from './product.route';
 import { orderRouter } from './order.route';
 
+import path from 'path';
+
 export const routes = (app: Express) => {
    app.use('/api/carts', cartRouter);
    app.use('/api/products', productRouter);
    app.use('/api/orders', orderRouter);
+
+   app.use('/testpost', (req, res, next) => {
+      res.sendFile(path.join(__dirname, 'index.html'));
+   });
 
    app.use('/api/post', (req: Request, res: Response) => {
       res.cookie('token', '123456789', { httpOnly: true, maxAge: 10 * 1000 });

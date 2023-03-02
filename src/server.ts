@@ -23,6 +23,9 @@ const bootServer = () => {
       interval: '1d', // rotate daily
       path: path.join(__dirname, 'log'),
    });
+
+
+   app.use(express.static(path.join(__dirname, 'src')));
    // app.use((req, res, next) => {
       //    res.setHeader('Access-Control-Allow-Origin', '*');
       //    res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -45,7 +48,7 @@ const bootServer = () => {
    app.use(
       cors({
          // credentials: true,
-         origin: '*',
+         // origin: '*',
          // methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
          // allowedHeaders: [
          //    'Origin',
