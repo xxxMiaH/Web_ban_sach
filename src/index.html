@@ -10,26 +10,32 @@
       <h1 class="post">POST PRODUCT</h1>
    </body>
    <script>
-      fetch('https://api-ebook.cyclic.app/api/products', {
-         method: 'POST',
-         credentials: 'include',
-         mode: 'no-cors',
-         headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-         },
-         body: JSON.stringify({
-            name: 'tests',
-            price: 1000,
-            description: 'test',
-            introduction: 'test',
-         }),
-      })
-         .then(async res => {
-            console.log('K lỗi', await res.json());
-         })
-         .catch(err => {
-            console.log('Lỗi', err);
-         });
+      const fetchProduct = async () => {
+         try {
+            const res = await fetch(
+               'https://api-ebook.cyclic.app/api/products',
+               {
+                  method: 'POST',
+                  credentials: 'include',
+                  mode: 'no-cors',
+                  headers: {
+                     Accept: 'application/json',
+                     'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                     name: 'tests',
+                     price: 1000,
+                     description: 'test',
+                     introduction: 'test',
+                  }),
+               }
+            );
+            const data = await res.json();
+            console.log(data);
+         } catch (err) {
+            console.log(err);
+         }
+      };
+      fetchProduct();
    </script>
 </html>

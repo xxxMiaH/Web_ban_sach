@@ -24,31 +24,30 @@ const bootServer = () => {
       path: path.join(__dirname, 'log'),
    });
 
-
    app.use(express.static(path.join(__dirname, 'src')));
    // app.use((req, res, next) => {
-      //    res.setHeader('Access-Control-Allow-Origin', '*');
-      //    res.setHeader('Access-Control-Allow-Credentials', 'true');
-      //    res.setHeader('Access-Control-Max-Age', '1800');
-      //    res.setHeader('Access-Control-Allow-Headers', 'content-type');
-      //    res.setHeader(
-      //       'Access-Control-Allow-Methods',
-      //       'PUT, POST, GET, DELETE, PATCH, OPTIONS'
-      //    );
-      //    next();
-      // });
+   //    res.setHeader('Access-Control-Allow-Origin', '*');
+   //    res.setHeader('Access-Control-Allow-Credentials', 'true');
+   //    res.setHeader('Access-Control-Max-Age', '1800');
+   //    res.setHeader('Access-Control-Allow-Headers', 'content-type');
+   //    res.setHeader(
+   //       'Access-Control-Allow-Methods',
+   //       'PUT, POST, GET, DELETE, PATCH, OPTIONS'
+   //    );
+   //    next();
+   // });
    app.use(cookieParser());
    app.use(
       isProduction
-      ? morgan('combined', { stream: accessLogStream })
-      : morgan('dev')
-      );
+         ? morgan('combined', { stream: accessLogStream })
+         : morgan('dev')
+   );
    app.use(express.json());
    app.use(express.urlencoded({ extended: true }));
    app.use(
       cors({
          // credentials: true,
-         // origin: '*',
+         origin: '*',
          // methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
          // allowedHeaders: [
          //    'Origin',
