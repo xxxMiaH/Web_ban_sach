@@ -1,6 +1,6 @@
 import { IProduct } from './../interfaces/interfaces.model';
 import ProductModel from '../models/Product.model';
-import { ObjectId } from 'mongoose';
+import { Schema } from 'mongoose';
 
 class ProductService {
    getAllProducts = async (): Promise<object> => {
@@ -49,7 +49,7 @@ class ProductService {
    };
 
    updateAProduct = async (
-      paramsId: string | ObjectId,
+      paramsId: string | Schema.Types.ObjectId,
       data: IProduct
    ): Promise<object> => {
       try {
@@ -63,7 +63,7 @@ class ProductService {
       }
    };
 
-   deleteAProduct = async (paramsId: string | ObjectId): Promise<object> => {
+   deleteAProduct = async (paramsId: string | Schema.Types.ObjectId): Promise<object> => {
       try {
          return {
             status: 'Delete success',
@@ -74,7 +74,7 @@ class ProductService {
       }
    };
 
-   getAProduct = async (paramsId: string | ObjectId): Promise<object> => {
+   getAProduct = async (paramsId: string | Schema.Types.ObjectId): Promise<object> => {
       try {
          const product = await ProductModel.findById(paramsId);
          if (!product) throw new Error('Product not found');

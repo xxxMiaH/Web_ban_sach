@@ -1,9 +1,9 @@
-import { Types } from 'mongoose';
+import { Schema } from 'mongoose';
 
 export interface ICart {
    products: [
       {
-         product: Types.ObjectId;
+         product: Schema.Types.ObjectId;
          quantity: number;
       }
    ];
@@ -34,7 +34,7 @@ export interface IOrder {
    };
    products: [
       {
-         product: Types.ObjectId;
+         product: Schema.Types.ObjectId;
          quantity: number;
       }
    ];

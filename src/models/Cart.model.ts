@@ -18,6 +18,7 @@ const CartSchema = new Schema<ICart>(
       total_price: {
          type: Number,
          required: true,
+         default: 0,
       },
    },
    {

@@ -1,6 +1,7 @@
 import express from 'express';
 import { config } from 'dotenv';
 config();
+import {cors} from 'cors';
 import { createStream } from 'rotating-file-stream';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
@@ -22,6 +23,7 @@ const bootServer = () => {
       interval: '1d', // rotate daily
       path: path.join(__dirname, 'log'),
    });
+   app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
    app.use(cookieParser());
    app.use(
       isProduction

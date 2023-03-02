@@ -4,9 +4,9 @@ import { productRouter } from './product.route';
 import { orderRouter } from './order.route';
 
 export const routes = (app: Express) => {
-   app.use('/api/cart', cartRouter);
-   app.use('/api/product', productRouter);
-   app.use('/api/order', orderRouter);
+   app.use('/api/carts', cartRouter);
+   app.use('/api/products', productRouter);
+   app.use('/api/orders', orderRouter);
 
    app.use('/api/post', (req: Request, res: Response) => {
       res.cookie('token', '123456789', { httpOnly: true, maxAge: 10 * 1000 });

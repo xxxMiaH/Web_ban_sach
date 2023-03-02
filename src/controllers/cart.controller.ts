@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { config } from 'dotenv';
+config();
 
 import CartService from '../services/cart.service';
 
@@ -14,7 +16,19 @@ class CartController {
 
    createACart = async (req: Request, res: Response): Promise<Response> => {
       try {
-         const result = await CartService.createACart(req.body);
+         const result = await CartService.createACart(
+            req.params.id,
+            req.cookies,
+            req.body
+         );
+         if ('cookieValue' in result) {
+            // kiem tra xem co cookieValue trong result khong (hàm thay thế khác: Object.keys(result).includes('cookieValue'), Object.hasOwn(result, 'cookieValue'))
+            res.cookie('cart', result.cookieValue, {
+               maxAge: 1000 * 60 * 60 * 24 * 1, // 1 day
+               httpOnly: true,
+               secure: process.env.NODE_ENV === 'production' ? true : false,
+            });
+         }
          return res.status(200).json(result);
       } catch (err: any) {
          console.log(err.message);
