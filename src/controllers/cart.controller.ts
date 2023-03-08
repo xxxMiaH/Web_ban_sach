@@ -38,7 +38,7 @@ class CartController {
 
    updateACart = async (req: Request, res: Response): Promise<Response> => {
       try {
-         const result = await CartService.updateACart(req.params.id, req.body);
+         const result = await CartService.updateACart(req.cookies, req.body);
          return res.status(200).json(result);
       } catch (err: any) {
          return res.status(500).send(err.message);
@@ -47,7 +47,7 @@ class CartController {
 
    deleteACart = async (req: Request, res: Response): Promise<Response> => {
       try {
-         const result = await CartService.deleteACart(req.params.id);
+         const result = await CartService.deleteACart(req.body, req.cookies);
          return res.status(200).json(result);
       } catch (err: any) {
          return res.status(500).send(err.message);
@@ -56,7 +56,7 @@ class CartController {
 
    getACart = async (req: Request, res: Response): Promise<Response> => {
       try {
-         const result = await CartService.getACart(req.params.id);
+         const result = await CartService.getACart(req.cookies);
          return res.status(200).json(result);
       } catch (err: any) {
          return res.status(500).send(err.message);

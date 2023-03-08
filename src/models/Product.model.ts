@@ -27,12 +27,9 @@ const ProductSchema = new Schema<IProduct>(
          type: String,
          required: true,
       },
-      images: [
-         {
-            type: String,
-            required: true,
-         },
-      ],
+      images: {
+         type: [String],
+      },
       stock: {
          type: Number,
          required: true,

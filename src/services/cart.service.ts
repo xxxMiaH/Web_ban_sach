@@ -8,7 +8,7 @@ import ProductModel from '../models/Product.model';
 class CartService {
    getAllCarts = async (): Promise<object> => {
       try {
-         const data = await CartModel.find({});
+         const data = await CartModel.find({}).populate('products.product');
          return { status: 'Find all success', data };
       } catch (err: any) {
          throw new Error(err);
@@ -20,11 +20,12 @@ class CartService {
       data: any
    ): Promise<object> => {
       try {
-         console.log(cookies);
          const quantityBody = data.quantity;
          const product = await ProductModel.findOne({ _id: id });
          if (!product) throw new Error('Product not found');
          const price = product.price;
+
+         //! Có giỏ hàng
          if (
             Object.keys(cookies).length > 0 &&
             Object.hasOwn(cookies, 'cart')
@@ -41,6 +42,7 @@ class CartService {
                { product: id }
             );
 
+            //! Có sản phẩm trong giỏ
             let result: any;
             if (product) {
                // lay quantity cua product do ra roi tang len 1
@@ -60,7 +62,7 @@ class CartService {
                   { returnDocument: 'after' }
                ).elemMatch('products', { product: id });
             } else {
-               // chưa có sản phẩm trong giỏ hàng
+               //! Chưa có sản phẩm trong giỏ hàng
                result = await CartModel.findByIdAndUpdate(
                   cartId,
                   {
@@ -77,7 +79,7 @@ class CartService {
             }
             return { status: 'Update success', result };
          }
-         // chưa có giỏ hàng
+         //! Chưa có giỏ hàng
          const result = await CartModel.create({
             products: [
                {
@@ -94,18 +96,120 @@ class CartService {
       }
    };
    updateACart = async (
-      id: Schema.Types.ObjectId | string,
-      data: ICart
+      cookies: Request['cookies'],
+      data: any
    ): Promise<object> => {
-      return {};
+      try {
+         const { productId, quantity } = data;
+
+         if (!productId || !quantity) {
+            throw new Error('Missing required fields');
+         }
+         if (Object.keys(cookies).length < 1 && !Object.hasOwn(cookies, 'cart'))
+            throw new Error('Something went wrong! Please try again later!');
+
+         const cartId = cookies.cart;
+         //! Cập nhật số lượng
+         await CartModel.findByIdAndUpdate(cartId, {
+            $set: { 'products.$.quantity': quantity },
+         }).elemMatch('products', { product: productId });
+         //! Cập nhật tổng tiền (có nhiều sản phẩm thì cộng tiền)
+         const cart = await (
+            await CartModel.findById(cartId)
+         ).populate('products.product');
+         let tempPrice = 0;
+         // cart.products.forEach((p: any) => {
+         //    tempPrice += p.quantity * p.product.price;
+         // });
+         tempPrice = cart.products.reduce((acc: number, p: any) => {
+            return acc + p.quantity * p.product.price;
+         }, tempPrice);
+         const result = await CartModel.findByIdAndUpdate(
+            cartId,
+            {
+               $set: { total_price: tempPrice },
+            },
+            { returnDocument: 'after' }
+         ).populate('products.product');
+         return { status: 'Updated success', result };
+      } catch (err) {
+         console.log(err);
+         throw new Error(err);
+      }
    };
    deleteACart = async (
-      id: Schema.Types.ObjectId | string
+      data: Request['body'],
+      cookies: Request['cookies']
    ): Promise<object> => {
-      return {};
+      try {
+         const { productId } = data;
+         if (!productId) {
+            throw new Error('Missing required fields');
+         }
+         if (Object.keys(cookies).length < 1 && !Object.hasOwn(cookies, 'cart'))
+            throw new Error('Something went wrong! Please try again later!');
+
+         const cartId = cookies.cart;
+         // Kiểm tra giỏ hàng có tồn tại không
+         const cart = await CartModel.findById(cartId).populate({
+            path: 'products.product',
+         });
+         if (!cart) throw new Error('Cart not found');
+         // Kiểm tra product có trong giỏ hàng không
+         const product = await CartModel.findById(cartId).elemMatch(
+            'products',
+            { product: productId }
+         );
+         if (!product) throw new Error('Product not found');
+
+         const oldPrice: number = Number(cart.total_price);
+         await cart.products.forEach(async (p: any) => {
+            if (p.product._id == productId) {
+               const price = p.product.price;
+               const quantity = p.quantity;
+               const newPrice = oldPrice - price * quantity;
+               await CartModel.findByIdAndUpdate(cartId, {
+                  $set: { total_price: newPrice },
+               });
+            }
+         });
+
+         const result = await CartModel.findByIdAndUpdate(
+            { _id: cartId },
+            {
+               $pull: {
+                  products: { product: productId },
+               },
+            },
+            { returnDocument: 'after' }
+         );
+         // Kiểm tra giỏ hàng có sản phẩm nào không
+         if (result.products.length < 1) {
+            await CartModel.findByIdAndDelete(cartId);
+            return { status: 'Deleted success', result: null };
+         }
+         return { status: 'Deleted success', result };
+      } catch (err) {
+         console.log(err);
+         throw new Error(err);
+      }
    };
-   getACart = async (id: Schema.Types.ObjectId | string): Promise<object> => {
-      return {};
+   getACart = async (cookies: Request['cookies']): Promise<object> => {
+      try {
+         // Kiểm tra giỏ hàng có tồn tại không
+         if (Object.keys(cookies).length < 1 && !Object.hasOwn(cookies, 'cart'))
+            return {};
+
+         const cartId = cookies.cart;
+         const cart = await CartModel.findById(cartId).populate({
+            path: 'products.product',
+         });
+         if (!cart) throw new Error('Cart not found');
+         return cart;
+      } catch (err) {
+         console.log(err);
+         throw new Error(err);
+      }
    };
 }
 

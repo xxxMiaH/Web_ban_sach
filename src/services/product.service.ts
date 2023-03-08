@@ -41,7 +41,9 @@ class ProductService {
 
          return {
             status: 'Create success',
-            data: await ProductModel.create(data),
+            data: await ProductModel.create({
+               ...data,
+            }),
          };
       } catch (err: any) {
          throw new Error(err);
@@ -63,7 +65,9 @@ class ProductService {
       }
    };
 
-   deleteAProduct = async (paramsId: string | Schema.Types.ObjectId): Promise<object> => {
+   deleteAProduct = async (
+      paramsId: string | Schema.Types.ObjectId
+   ): Promise<object> => {
       try {
          return {
             status: 'Delete success',
@@ -74,7 +78,9 @@ class ProductService {
       }
    };
 
-   getAProduct = async (paramsId: string | Schema.Types.ObjectId): Promise<object> => {
+   getAProduct = async (
+      paramsId: string | Schema.Types.ObjectId
+   ): Promise<object> => {
       try {
          const product = await ProductModel.findById(paramsId);
          if (!product) throw new Error('Product not found');
