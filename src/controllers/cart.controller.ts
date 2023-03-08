@@ -25,6 +25,9 @@ class CartController {
             console.log(result.cookieValue);
             // kiem tra xem co cookieValue trong result khong (hàm thay thế khác: Object.keys(result).includes('cookieValue'), Object.hasOwn(result, 'cookieValue'))
             res.cookie('cart', result.cookieValue, {
+               // domain: process.env.DOMAIN,
+               sameSite: 'lax',
+               path: '/',
                maxAge: 1000 * 60 * 60 * 24 * 1, // 1 day
                httpOnly: true,
                secure: process.env.NODE_ENV === 'production' ? true : false,

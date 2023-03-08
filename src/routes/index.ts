@@ -15,7 +15,13 @@ export const routes = (app: Express) => {
    });
 
    app.use('/api/post', (req: Request, res: Response) => {
-      res.cookie('token', '123456789', { httpOnly: true, maxAge: 10 * 1000 });
+      res.cookie('token', '123456789', {
+         domain: 'localhost',
+         path: '/',
+         sameSite: 'lax',
+         httpOnly: true,
+         maxAge: 100 * 1000,
+      });
       res.send('Set cookie success');
    });
 
