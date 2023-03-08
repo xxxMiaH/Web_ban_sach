@@ -36,15 +36,15 @@ const bootServer = () => {
    //    );
    //    next();
    // });
-   app.use(cookieParser());
    app.use(
       isProduction
-         ? morgan('combined', { stream: accessLogStream })
-         : morgan('dev')
-   );
-   app.use(express.json());
-   app.use(express.urlencoded({ extended: true }));
-   app.use(
+      ? morgan('combined', { stream: accessLogStream })
+      : morgan('dev')
+      );
+      app.use(express.json());
+      app.use(express.urlencoded({ extended: true }));
+      app.use(cookieParser());
+      app.use(
       cors({
          // credentials: true,
          origin: '*',

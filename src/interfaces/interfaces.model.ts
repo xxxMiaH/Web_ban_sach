@@ -16,11 +16,7 @@ export interface IProduct {
    introduction: string;
    description: string;
    price: number;
-   images: [
-      {
-         url: string;
-      }
-   ];
+   images: string[];
    category: string;
    stock: number;
 }

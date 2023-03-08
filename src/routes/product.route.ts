@@ -12,5 +12,6 @@ router
    .patch(ProductController.updateAProduct)
    .delete(ProductController.deleteAProduct)
    .get(ProductController.getAProduct);
+   router.route('/category')
 
 export const productRouter = router;
