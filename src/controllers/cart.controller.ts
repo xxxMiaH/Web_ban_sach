@@ -22,15 +22,17 @@ class CartController {
             req.body
          );
          if ('cookieValue' in result) {
-            console.log(result.cookieValue)
+            console.log(result.cookieValue);
             // kiem tra xem co cookieValue trong result khong (hàm thay thế khác: Object.keys(result).includes('cookieValue'), Object.hasOwn(result, 'cookieValue'))
             res.cookie('cart', result.cookieValue, {
                maxAge: 1000 * 60 * 60 * 24 * 1, // 1 day
                httpOnly: true,
                secure: process.env.NODE_ENV === 'production' ? true : false,
             });
+            return res.status(200).json(result);
+         } else {
+            return res.status(201).json(result);
          }
-         return res.status(200).json(result);
       } catch (err: any) {
          console.log(err.message);
          return res.status(500).send(err.message);
