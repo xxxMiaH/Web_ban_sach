@@ -15,12 +15,13 @@ export const routes = (app: Express) => {
    });
 
    app.use('/api/post', (req: Request, res: Response) => {
-      res.cookie('token', '123456789', {
-         domain: 'localhost',
-         path: '/',
-         sameSite: 'lax',
+      res.cookie('token', '1234567890', {
+         // domain: 'localhost',
+         // path: '/',
+         sameSite: 'none',
          httpOnly: true,
-         maxAge: 100 * 1000,
+         maxAge: 600 * 1000,
+         secure: true
       });
       res.send('Set cookie success');
    });
