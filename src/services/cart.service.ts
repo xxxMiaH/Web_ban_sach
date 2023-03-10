@@ -190,7 +190,7 @@ class CartService {
          // Kiểm tra giỏ hàng có sản phẩm nào không
          if (result.products.length < 1) {
             await CartModel.findByIdAndDelete(cartId);
-            return { status: 'Successfully deleted', result: null };
+            return { status: 'Successfully deleted', result: {} };
          }
          return { status: 'Successfully deleted', result };
       } catch (err) {

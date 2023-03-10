@@ -10,7 +10,7 @@ class CartController {
          const result = await CartService.getAllCarts();
          return res.status(200).json(result);
       } catch (err: any) {
-         return res.status(500).send(err.message);
+         return res.status(500).json(err.message);
       }
    };
 
@@ -23,7 +23,7 @@ class CartController {
          );
          if ('cookieValue' in result) {
             console.log(result.cookieValue);
-            // kiem tra xem co cookieValue trong result khong (hàm thay thế khác: Object.keys(result).includes('cookieValue'), Object.hasOwn(result, 'cookieValue'))
+            // Kiem tra xem co cookieValue trong result khong (hàm thay thế khác: Object.keys(result).includes('cookieValue'), Object.hasOwn(result, 'cookieValue'))
             res.cookie('cart', result.cookieValue, {
                // domain: 'api-ebook.cyclic.app',
                sameSite: 'none',
@@ -38,7 +38,7 @@ class CartController {
          }
       } catch (err: any) {
          console.log(err.message);
-         return res.status(500).send(err.message);
+         return res.status(500).json(err.message);
       }
    };
 
@@ -47,16 +47,20 @@ class CartController {
          const result = await CartService.updateACart(req.cookies, req.body);
          return res.status(200).json(result);
       } catch (err: any) {
-         return res.status(500).send(err.message);
+         return res.status(500).json(err.message);
       }
    };
 
    deleteACart = async (req: Request, res: Response): Promise<Response> => {
       try {
          const result = await CartService.deleteACart(req.body, req.cookies);
+
+         if (Object.keys(result).length === 0) {
+            res.clearCookie('cart');
+         }
          return res.status(200).json(result);
       } catch (err: any) {
-         return res.status(500).send(err.message);
+         return res.status(500).json(err.message);
       }
    };
 
@@ -65,7 +69,7 @@ class CartController {
          const result = await CartService.getACart(req.cookies);
          return res.status(200).json(result);
       } catch (err: any) {
-         return res.status(500).send(err.message);
+         return res.status(500).json(err.message);
       }
    };
 }
