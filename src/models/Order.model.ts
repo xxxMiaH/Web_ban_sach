@@ -39,6 +39,11 @@ const OrderSchema = new Schema<IOrder>(
          type: Number,
          default: 0,
       },
+      captcha: {
+         type: String,
+         required: true,
+         default: null,
+      },
       // trạng thái đơn hàng
       status: {
          type: String,

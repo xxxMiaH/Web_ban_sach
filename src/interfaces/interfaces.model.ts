@@ -36,6 +36,7 @@ export interface IOrder {
    ];
    total_price: number;
    status: string;
+   captcha: string;
    delivery_date: Date;
    canceled_date: Date;
    completed_date: Date;
