@@ -6,7 +6,7 @@ import CartModel from "../models/Cart.model";
 import OrderModel from "../models/Order.model";
 import ProductModel from "../models/Product.model";
 
-class OrderService{
+export default new (class OrderService {
     createOrder = async (
         id: Schema.Types.ObjectId | string,
       cookies: Request['cookies'],
@@ -28,13 +28,10 @@ class OrderService{
                 const oldPrice = cart.total_price;
             }
 
-
+            return {};
         }
         catch(err: any){
             console.log({ErrorOder: err});
             throw new Error(err);
         }
-    }
-}
-
-export default new OrderService;
+    }})();
