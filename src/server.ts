@@ -28,7 +28,7 @@ const bootServer = () => {
    app.use((req, res, next) => {
       res.setHeader(
          'Access-Control-Allow-Origin',
-         'http://localhost:5173, http://localhost:3000, https://ban-sach-truc-tuyen.vercel.app'
+         'https://ban-sach-truc-tuyen.vercel.app'
       );
       res.setHeader('Access-Control-Allow-Credentials', 'true');
       res.setHeader(
