@@ -3,7 +3,6 @@ config();
 import { ObjectId, Schema } from 'mongoose';
 import { Request } from 'express';
 
-import { ICart } from '../interfaces/interfaces.model';
 import CartModel from '../models/Cart.model';
 import OrderModel from '../models/Order.model';
 
@@ -54,10 +53,17 @@ class OrderService {
             return x;
          });
 
+         // const results = await OrderModel.create({
+         //    ...data,
+         //    products: cartProduct,
+         //    total_price: oldPrice,
+         // });
+
          const results = await OrderModel.create({
-            ...data,
+            customer: data,
             products: cartProduct,
             total_price: oldPrice,
+            captcha: data.captcha,
          });
          await CartModel.findByIdAndDelete(cartId);
 
@@ -73,14 +79,17 @@ class OrderService {
 
    updateOrder = async (data: any): Promise<object> => {
       try {
-         const { orderId } = data;
-         if (!orderId) throw new Error('Missing required fields');
-         delete data.orderId;
-
-         const order = await OrderModel.findByIdAndUpdate(orderId, data);
+         const order = await OrderModel.findById(data.idOrder);
+         // let results
+         if (order) {
+            var results = await OrderModel.findByIdAndUpdate(order.id, data);
+         } else {
+            throw new Error('Something went wrong! Please try again later!');
+         }
          return {
             status: 'Successfully update Order',
-            order,
+            results,
+            data,
          };
       } catch (err: any) {
          console.log(err);
@@ -89,14 +98,17 @@ class OrderService {
    };
    deleteOder = async (data: any): Promise<object> => {
       try {
-         const { orderId } = data;
-         if (!orderId) throw new Error('Missing required fields');
-         const order = await OrderModel.findByIdAndDelete(orderId);
-         if (!order) throw new Error('Order not found');
-
+         const order = await OrderModel.findById(data.id);
+         // let results
+         if (order) {
+            var results = await OrderModel.findByIdAndDelete(order.id, data);
+         } else {
+            throw new Error('Something went wrong! Please try again later!');
+         }
          return {
             status: 'Successfully delete Order',
-            order,
+            results,
+            data,
          };
       } catch (err: any) {
          console.log(err);
@@ -106,13 +118,12 @@ class OrderService {
 
    getAOrder = async (data: any): Promise<object> => {
       try {
-         const { orderId } = data;
-         if (!orderId) throw new Error('Missing required fields');
-         const order = await OrderModel.findById(orderId);
-         if (!order) throw new Error('Order not found');
-
+         const order = await OrderModel.find(data);
+         // let results
+         if (!order) {
+            throw new Error('Something went wrong! Please try again later!');
+         }
          return {
-            status: 'Successfully get Order',
             order,
          };
       } catch (err: any) {

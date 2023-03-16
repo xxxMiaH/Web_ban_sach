@@ -22,8 +22,8 @@ const OrderSchema = new Schema<IOrder>(
             required: true,
          },
          note: {
-            type: String,
-            default: null,
+            text: String,
+            default: '',
          },
       },
       // Sản phẩm, số lượng sản phẩm
@@ -46,7 +46,6 @@ const OrderSchema = new Schema<IOrder>(
       },
       captcha: {
          type: String,
-         required: true,
          default: null,
       },
       // trạng thái đơn hàng
