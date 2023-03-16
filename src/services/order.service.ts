@@ -33,12 +33,12 @@ class OrderService {
                 {
                     return x;
                 })
-                const captcha = shortid.generate().slice(0, 6);
+                // const captcha = shortid.generate().slice(0, 6);
                 const results = await OrderModel.create({
                     customer: data,
                     products: cartProduct,
                     total_price: oldPrice,
-                    captcha: captcha,
+                    captcha: data.captcha,
                 })
                 let deleteCart = await CartModel.findByIdAndDelete(cartId)
 
