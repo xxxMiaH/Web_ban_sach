@@ -6,6 +6,17 @@ import { orderRouter } from './order.route';
 import path from 'path';
 
 export const routes = (app: Express) => {
+   app.use(function (req, res, next) {
+      res.header(
+         'Access-Control-Allow-Origin',
+         'https://ban-sach-truc-tuyen.vercel.app'
+      );
+      res.header(
+         'Access-Control-Allow-Headers',
+         'Origin, X-Requested-With, Content-Type, Accept'
+      );
+      next();
+   });
    app.use('/api/carts', cartRouter);
    app.use('/api/products', productRouter);
    app.use('/api/orders', orderRouter);
@@ -21,7 +32,7 @@ export const routes = (app: Express) => {
          sameSite: 'none',
          httpOnly: true,
          maxAge: 600 * 1000,
-         secure: true
+         secure: true,
       });
       res.send('Set cookie success');
    });
