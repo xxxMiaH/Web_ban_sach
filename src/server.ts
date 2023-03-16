@@ -38,19 +38,13 @@ const bootServer = () => {
    //    );
    //    next();
    // });
-   app.use(
-      isProduction
-         ? morgan('combined', { stream: accessLogStream })
-         : morgan('dev')
-   );
-   app.use(express.json());
-   app.use(express.urlencoded({ extended: true }));
-   app.use(cookieParser());
+
    app.use(
       cors({
          credentials: true,
          origin: [
             'http://localhost:5173',
+            'http://localhost:3000',
             // 'https://ban-sach-truc-tuyen.vercel.app',
          ],
          allowedHeaders: [
@@ -69,6 +63,14 @@ const bootServer = () => {
          // optionSuccessStatus: 200,
       })
    );
+   app.use(
+      isProduction
+         ? morgan('combined', { stream: accessLogStream })
+         : morgan('dev')
+   );
+   app.use(express.json());
+   app.use(express.urlencoded({ extended: true }));
+   app.use(cookieParser());
 
    routes(app);
 
