@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 const app = express();
-const port = 3000;
+const port = 5173;
 
 const bootServer = () => {
    app.use(express.static(path.join(__dirname, 'src')));
