@@ -38,7 +38,7 @@ class OrderService {
                     customer: data,
                     products: cartProduct,
                     total_price: oldPrice,
-                    captcha: captcha
+                    captcha: captcha,
                 })
                 let deleteCart = await CartModel.findByIdAndDelete(cartId)
 
@@ -123,9 +123,28 @@ class OrderService {
             console.log(err);
             throw new Error(err);
          }
+    };
+    
+    orderBrowsing = async(data: any): Promise<object> =>{
+        try{
+            const order = await OrderModel.findById(data.id)
+            if(data.orderBrowsing){
+              var updateStatus = await OrderModel.findByIdAndUpdate(order.id,{status: "shipping"})  
+            }
+            else{
+                var updateStatus = await OrderModel.findByIdAndUpdate(order.id,{status: "canceled"})
+            }
+            if(!order){
+                throw new Error('Something went wrong! Please try again later!');
+            }  
+            return{updateStatus}
+            
         }
-    
-    
+        catch (err: any) {
+            console.log(err);
+            throw new Error(err);
+         }
+    }
 
 };
 

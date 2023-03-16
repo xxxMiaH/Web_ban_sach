@@ -27,6 +27,7 @@ export interface IOrder {
       phone: string;
       email: string;
       address: string;
+      note: string;
    };
    products: [
       {
