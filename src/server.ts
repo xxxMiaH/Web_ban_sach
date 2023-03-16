@@ -26,11 +26,14 @@ const bootServer = () => {
 
    app.use(express.static(path.join(__dirname, 'src')));
    app.use((req, res, next) => {
-      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+      res.setHeader(
+         'Access-Control-Allow-Origin',
+         'http://localhost:5173, http://localhost:3000, https://ban-sach-truc-tuyen.vercel.app'
+      );
       res.setHeader('Access-Control-Allow-Credentials', 'true');
       res.setHeader(
          'Access-Control-Allow-Methods',
-         'GET,HEAD,OPTIONS,POST,PUT'
+         'GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH'
       );
       res.setHeader(
          'Access-Control-Allow-Headers',
