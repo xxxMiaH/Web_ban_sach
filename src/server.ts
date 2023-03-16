@@ -13,6 +13,22 @@ import { connectDB } from './config/connectDB';
 
 const app = express();
 const port = process.env.PORT;
+app.use((req, res, next) => {
+   res.setHeader(
+      'Access-Control-Allow-Origin',
+      'https://ban-sach-truc-tuyen.vercel.app'
+   );
+   res.setHeader('Access-Control-Allow-Credentials', 'true');
+   res.setHeader(
+      'Access-Control-Allow-Methods',
+      'GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH'
+   );
+   res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+   );
+   next();
+});
 
 connectDB().then(() => bootServer());
 
@@ -25,22 +41,6 @@ const bootServer = () => {
    });
 
    app.use(express.static(path.join(__dirname, 'src')));
-   app.use((req, res, next) => {
-      res.setHeader(
-         'Access-Control-Allow-Origin',
-         'https://ban-sach-truc-tuyen.vercel.app'
-      );
-      res.setHeader('Access-Control-Allow-Credentials', 'true');
-      res.setHeader(
-         'Access-Control-Allow-Methods',
-         'GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH'
-      );
-      res.setHeader(
-         'Access-Control-Allow-Headers',
-         'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-      );
-      next();
-   });
 
    // let whiteList = [
    //    'http://localhost:5173',
