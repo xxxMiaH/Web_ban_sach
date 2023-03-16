@@ -74,7 +74,7 @@ const bootServer = () => {
          // optionSuccessStatus: 200,
       })
    );
-   app.options('*', cors());
+   app.options('https://ban-sach-truc-tuyen.vercel.app', cors());
    app.use(
       isProduction
          ? morgan('combined', { stream: accessLogStream })
