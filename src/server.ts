@@ -25,44 +25,44 @@ const bootServer = () => {
    });
 
    app.use(express.static(path.join(__dirname, 'src')));
-   // app.use((req, res, next) => {
-   //    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-   //    res.setHeader('Access-Control-Allow-Credentials', 'true');
-   //    res.setHeader(
-   //       'Access-Control-Allow-Methods',
-   //       'GET,HEAD,OPTIONS,POST,PUT'
-   //    );
-   //    res.setHeader(
-   //       'Access-Control-Allow-Headers',
-   //       'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-   //    );
-   //    next();
-   // });
+   app.use((req, res, next) => {
+      res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173');
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+      res.setHeader(
+         'Access-Control-Allow-Methods',
+         'GET,HEAD,OPTIONS,POST,PUT'
+      );
+      res.setHeader(
+         'Access-Control-Allow-Headers',
+         'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+      );
+      next();
+   });
 
-   app.use(
-      cors({
-         credentials: true,
-         origin: [
-            'http://localhost:5173',
-            'http://localhost:3000',
-            'https://ban-sach-truc-tuyen.vercel.app',
-         ],
-         allowedHeaders: [
-            'Authorization',
-            'Content-Type',
-            'Access-Control-Request-Method',
-            'X-Requested-With',
-            'Accept',
-            'Access-Control-Request-Headers',
-            'Origin',
-            'Access-Control-Allow-Headers',
-         ],
-         methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS'],
-         exposedHeaders: ['Access-Control-Allow-Origin'],
-         preflightContinue: true,
-         // optionSuccessStatus: 200,
-      })
-   );
+   // app.use(
+   //    cors({
+   //       credentials: true,
+   //       origin: [
+   //          'http://localhost:5173',
+   //          'http://localhost:3000',
+   //          'https://ban-sach-truc-tuyen.vercel.app',
+   //       ],
+   //       allowedHeaders: [
+   //          'Authorization',
+   //          'Content-Type',
+   //          'Access-Control-Request-Method',
+   //          'X-Requested-With',
+   //          'Accept',
+   //          'Access-Control-Request-Headers',
+   //          'Origin',
+   //          'Access-Control-Allow-Headers',
+   //       ],
+   //       methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
+   //       exposedHeaders: ['Access-Control-Allow-Origin'],
+   //       preflightContinue: true,
+   //       // optionSuccessStatus: 200,
+   //    })
+   // );
    app.use(
       isProduction
          ? morgan('combined', { stream: accessLogStream })
