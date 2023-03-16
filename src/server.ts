@@ -17,7 +17,7 @@ const port = process.env.PORT;
 connectDB().then(() => bootServer());
 
 const bootServer = () => {
-   const isProduction = process.env.NODE_ENV === 'production'; // để phân biệt dev và production
+   const isProduction = process.env.BUILD_CODE === 'production'; // để phân biệt dev và production
    // tạo file log theo ngày tới thư mục log trong thư mục gốc của project
    const accessLogStream = createStream('access.log', {
       interval: '1d', // rotate daily

@@ -23,7 +23,7 @@ class CartController {
          );
          if ('cookieValue' in result) {
             // Kiem tra xem co cookieValue trong result khong (hàm thay thế khác: Object.keys(result).includes('cookieValue'), Object.hasOwn(result, 'cookieValue'))
-            if (process.env.NODE_ENV === 'production') {
+            if (process.env.BUILD_CODE === 'production') {
                res.cookie('cart', result.cookieValue, {
                   // domain: 'api-ebook.cyclic.app',
                   sameSite: 'none',
