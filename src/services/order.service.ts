@@ -1,3 +1,5 @@
+import { config } from 'dotenv';
+config();
 import { ObjectId, Schema } from 'mongoose';
 import { Request } from 'express';
 
@@ -10,7 +12,28 @@ class OrderService {
       try {
          const data = await OrderModel.find({});
 
-         return { status: 'Successfully found all', data: data || [] };
+         if (!data) throw new Error('Order not found');
+         let orderCompleted: number = data.reduce((acc: any, cur: any) => {
+            if (cur.status === 'completed') {
+               acc += cur.total_price;
+            }
+            return acc;
+         }, 0);
+
+         let orderPending: number = data.reduce((acc: any, cur: any) => {
+            if (cur.status === 'pending') {
+               acc += cur.total_price;
+            }
+            return acc;
+         }, 0);
+
+         return {
+            status: 'Successfully found all',
+            orders: data || [],
+            expectedRevenue: orderPending,
+            actualRevenue: orderCompleted,
+            reducedRevenue: orderCompleted - (orderCompleted * 30) / 100,
+         };
       } catch (err: any) {
          throw new Error(err);
       }
@@ -30,6 +53,7 @@ class OrderService {
          const cartProduct = cart.products.map((x) => {
             return x;
          });
+
          const results = await OrderModel.create({
             ...data,
             products: cartProduct,
@@ -96,6 +120,22 @@ class OrderService {
          throw new Error(err);
       }
    };
+}
+
+function sortObject(obj: any) {
+   let sorted: { [key: string]: string } = {};
+   let str = [];
+   let key;
+   for (key in obj) {
+      if (obj.hasOwnProperty(key)) {
+         str.push(encodeURIComponent(key));
+      }
+   }
+   str.sort();
+   for (key = 0; key < str.length; key++) {
+      sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, '+');
+   }
+   return sorted;
 }
 
 export default new OrderService();

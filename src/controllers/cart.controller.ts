@@ -23,14 +23,25 @@ class CartController {
          );
          if ('cookieValue' in result) {
             // Kiem tra xem co cookieValue trong result khong (hàm thay thế khác: Object.keys(result).includes('cookieValue'), Object.hasOwn(result, 'cookieValue'))
-            res.cookie('cart', result.cookieValue, {
-               // domain: 'api-ebook.cyclic.app',
-               sameSite: 'none',
-               // path: '/',
-               maxAge: 1000 * 60 * 60 * 24 * 1, // 1 day
-               httpOnly: true,
-               secure: process.env.NODE_ENV === 'production' ? true : false,
-            });
+            if (process.env.NODE_ENV === 'production') {
+               res.cookie('cart', result.cookieValue, {
+                  // domain: 'api-ebook.cyclic.app',
+                  sameSite: 'none',
+                  // path: '/',
+                  maxAge: 1000 * 60 * 60 * 24 * 7, // 7 day
+                  httpOnly: true,
+                  secure: true,
+               });
+            } else {
+               res.cookie('cart', result.cookieValue, {
+                  // domain: 'api-ebook.cyclic.app',
+                  sameSite: 'none',
+                  // path: '/',
+                  maxAge: 1000 * 60 * 60 * 24 * 7, // 7 day
+                  httpOnly: true,
+                  secure: false,
+               });
+            }
             return res.status(200).json(result);
          } else {
             return res.status(201).json(result);

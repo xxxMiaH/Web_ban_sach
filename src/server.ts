@@ -24,7 +24,6 @@ const bootServer = () => {
       path: path.join(__dirname, 'log'),
    });
 
-
    app.use(express.static(path.join(__dirname, 'src')));
    // app.use((req, res, next) => {
    //    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -50,7 +49,11 @@ const bootServer = () => {
    app.use(
       cors({
          credentials: true,
-         origin: ['http://localhost:5173', 'http://localhost:3000'],
+         origin: [
+            'http://localhost:5173',
+            'http://localhost:3000',
+            'https://ban-sach-truc-tuyen.vercel.app',
+         ],
          allowedHeaders: [
             'Authorization',
             'Content-Type',
