@@ -5,7 +5,7 @@ import { Schema } from 'mongoose';
 class ProductService {
    getAllProducts = async (): Promise<object> => {
       try {
-         const products = ProductModel.find({});
+         const products = await ProductModel.find({});
          return products;
       } catch (err: any) {
          throw new Error(err);
@@ -85,6 +85,29 @@ class ProductService {
          const product = await ProductModel.findById(paramsId);
          if (!product) throw new Error('Product not found');
          return product;
+      } catch (err: any) {
+         throw new Error(err);
+      }
+   };
+
+   getProductsByCategory = async (query: any): Promise<object> => {
+      try {
+         const { q } = query;
+         const products = await ProductModel.find();
+         if (!products) throw new Error('Product not found');
+         let categories = products.map((x) => x.category);
+         categories = categories.filter((x, i) => categories.indexOf(x) === i); // indexOf trả về vị trí (index) đầu tiên nó tìm thấy của phần tử được cung cấp từ mảng
+         if (!q) {
+            return categories;
+         }
+         console.log('k co q');
+         const result = products.filter((x) => {
+            return x.category
+               .toLowerCase()
+               .trim()
+               .includes(q.toLowerCase().trim());
+         });
+         return result;
       } catch (err: any) {
          throw new Error(err);
       }

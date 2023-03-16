@@ -51,6 +51,15 @@ class ProductController {
          return res.status(500).json(err.message);
       }
    };
+
+   getProductsByCategory = async (req: Request, res: Response): Promise<Response> => {
+      try {
+         const result = await ProductService.getProductsByCategory(req.query);
+         return res.status(200).json(result);
+      } catch (err: any) {
+         return res.status(500).json(err.message);
+      }
+   };
 }
 
 export default new ProductController();

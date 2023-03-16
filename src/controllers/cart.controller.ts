@@ -22,7 +22,6 @@ class CartController {
             req.body
          );
          if ('cookieValue' in result) {
-            console.log(result.cookieValue);
             // Kiem tra xem co cookieValue trong result khong (hàm thay thế khác: Object.keys(result).includes('cookieValue'), Object.hasOwn(result, 'cookieValue'))
             res.cookie('cart', result.cookieValue, {
                // domain: 'api-ebook.cyclic.app',
@@ -30,7 +29,7 @@ class CartController {
                // path: '/',
                maxAge: 1000 * 60 * 60 * 24 * 1, // 1 day
                httpOnly: true,
-               secure: true,
+               secure: process.env.NODE_ENV === 'production' ? true : false,
             });
             return res.status(200).json(result);
          } else {
@@ -53,12 +52,15 @@ class CartController {
 
    deleteACart = async (req: Request, res: Response): Promise<Response> => {
       try {
-         const result = await CartService.deleteACart(req.body, req.cookies);
+         const data = await CartService.deleteACart(req.body, req.cookies);
 
-         if (Object.keys(result).length === 0) {
-            res.clearCookie('cart');
+         for (let entry of Object.entries(data)) {
+            const [key, value] = entry;
+            if (key === 'result' && Object.keys(value).length === 0) {
+               res.clearCookie('cart');
+            }
          }
-         return res.status(200).json(result);
+         return res.status(200).json(data);
       } catch (err: any) {
          return res.status(500).json(err.message);
       }
