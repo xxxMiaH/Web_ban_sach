@@ -42,14 +42,22 @@ const bootServer = () => {
    //    next();
    // });
 
+   let whiteList = [
+      'http://localhost:5173/',
+      'http://localhost:3000/',
+      'https://ban-sach-truc-tuyen.vercel.app/',
+   ];
    app.use(
       cors({
          credentials: true,
-         origin: [
-            'http://localhost:5173',
-            'http://localhost:3000',
-            'https://ban-sach-truc-tuyen.vercel.app',
-         ],
+         origin: function (origin: any, callback: any) {
+            if (whiteList.indexOf(origin) !== -1) {
+               callback(null, true);
+            } else {
+               callback(new Error('Not allowed by CORS'));
+            }
+         },
+
          allowedHeaders: [
             'Authorization',
             'Content-Type',
