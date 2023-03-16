@@ -39,6 +39,8 @@ const accessLogStream = createStream('access.log', {
 //    );
 //    next();
 // });
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 let whiteList = [
    'http://localhost:5173',
@@ -72,14 +74,12 @@ app.use(
       // optionSuccessStatus: 200,
    })
 );
+app.use(cookieParser());
 app.use(
    isProduction
       ? morgan('combined', { stream: accessLogStream })
       : morgan('dev')
 );
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 routes(app);
 
 app.listen(port, () => {
