@@ -16,12 +16,12 @@ const port = process.env.PORT;
 
 connectDB();
 
-const isProduction = process.env.BUILD_CODE === 'production'; // để phân biệt dev và production
+// const isProduction = process.env.BUILD_CODE === 'production'; // để phân biệt dev và production
 // tạo file log theo ngày tới thư mục log trong thư mục gốc của project
-const accessLogStream = createStream('access.log', {
-   interval: '1d', // rotate daily
-   path: path.join(__dirname, 'log'),
-});
+// const accessLogStream = createStream('access.log', {
+//    interval: '1d', // rotate daily
+//    path: path.join(__dirname, 'log'),
+// });
 
 // app.use((req, res, next) => {
 //    res.setHeader(
@@ -75,11 +75,7 @@ app.use(
    })
 );
 app.use(cookieParser());
-app.use(
-   isProduction
-      ? morgan('combined', { stream: accessLogStream })
-      : morgan('dev')
-);
+app.use(morgan('dev'));
 routes(app);
 
 app.listen(port, () => {
