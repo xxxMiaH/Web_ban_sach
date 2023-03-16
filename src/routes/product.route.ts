@@ -7,11 +7,11 @@ router
    .route('/')
    .get(ProductController.getAllProducts)
    .post(ProductController.createAProduct);
+router.route('/category').get(ProductController.getProductsByCategory);
 router
    .route('/:id')
    .patch(ProductController.updateAProduct)
    .delete(ProductController.deleteAProduct)
    .get(ProductController.getAProduct);
-   router.route('/category')
 
 export const productRouter = router;

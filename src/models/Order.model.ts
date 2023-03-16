@@ -21,6 +21,10 @@ const OrderSchema = new Schema<IOrder>(
             type: String,
             required: true,
          },
+         note: {
+            type: String,
+            default: null,
+         },
       },
       // Sản phẩm, số lượng sản phẩm
       products: [

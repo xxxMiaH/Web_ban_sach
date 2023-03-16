@@ -47,7 +47,7 @@ class CartService {
             if (product) {
                // lay quantity cua product do ra roi tang len 1
                const quantity = product.products.find(
-                  p => p.product == id
+                  (p) => p.product == id
                )?.quantity;
                const newQuantity = quantity + quantityBody;
 
@@ -109,6 +109,7 @@ class CartService {
          if (!productId || !quantity) {
             throw new Error('Missing required fields');
          }
+
          if (Object.keys(cookies).length < 1 && !Object.hasOwn(cookies, 'cart'))
             throw new Error('Something went wrong! Please try again later!');
 
