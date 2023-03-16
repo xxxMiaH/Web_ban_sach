@@ -25,56 +25,55 @@ const bootServer = () => {
    });
 
    app.use(express.static(path.join(__dirname, 'src')));
-   // app.use((req, res, next) => {
-   //    res.setHeader(
-   //       'Access-Control-Allow-Origin',
-   //       'http://localhost:5173'
-   //    );
-   //    res.setHeader('Access-Control-Allow-Credentials', 'true');
-   //    res.setHeader(
-   //       'Access-Control-Allow-Methods',
-   //       'GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH'
-   //    );
-   //    res.setHeader(
-   //       'Access-Control-Allow-Headers',
-   //       'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-   //    );
-   //    next();
-   // });
+   app.use((req, res, next) => {
+      res.setHeader(
+         'Access-Control-Allow-Origin',
+         'https://ban-sach-truc-tuyen.vercel.app'
+      );
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+      res.setHeader(
+         'Access-Control-Allow-Methods',
+         'GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH'
+      );
+      res.setHeader(
+         'Access-Control-Allow-Headers',
+         'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+      );
+      next();
+   });
 
-   let whiteList = [
-      'http://localhost:5173',
-      'http://localhost:3000',
-      'https://ban-sach-truc-tuyen.vercel.app',
-   ];
-   app.use(
-      cors({
-         credentials: true,
-         origin: function (origin: any, callback: any) {
-            if (whiteList.indexOf(origin) !== -1) {
-               callback(null, true);
-            } else {
-               callback(new Error('Not allowed by CORS'));
-            }
-         },
+   // let whiteList = [
+   //    'http://localhost:5173',
+   //    'http://localhost:3000',
+   //    'https://ban-sach-truc-tuyen.vercel.app',
+   // ];
+   // app.use(
+   //    cors({
+   //       credentials: true,
+   //       origin: function (origin: any, callback: any) {
+   //          if (whiteList.indexOf(origin) !== -1) {
+   //             callback(null, true);
+   //          } else {
+   //             callback(new Error('Not allowed by CORS'));
+   //          }
+   //       },
 
-         allowedHeaders: [
-            'Authorization',
-            'Content-Type',
-            'Access-Control-Request-Method',
-            'X-Requested-With',
-            'Accept',
-            'Access-Control-Request-Headers',
-            'Origin',
-            'Access-Control-Allow-Headers',
-         ],
-         methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
-         exposedHeaders: ['Access-Control-Allow-Origin'],
-         preflightContinue: true,
-         // optionSuccessStatus: 200,
-      })
-   );
-   app.options('https://ban-sach-truc-tuyen.vercel.app', cors());
+   //       allowedHeaders: [
+   //          'Authorization',
+   //          'Content-Type',
+   //          'Access-Control-Request-Method',
+   //          'X-Requested-With',
+   //          'Accept',
+   //          'Access-Control-Request-Headers',
+   //          'Origin',
+   //          'Access-Control-Allow-Headers',
+   //       ],
+   //       methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
+   //       exposedHeaders: ['Access-Control-Allow-Origin'],
+   //       preflightContinue: true,
+   //       // optionSuccessStatus: 200,
+   //    })
+   // );
    app.use(
       isProduction
          ? morgan('combined', { stream: accessLogStream })
