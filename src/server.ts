@@ -43,9 +43,9 @@ const bootServer = () => {
    // });
 
    let whiteList = [
-      'http://localhost:5173/',
-      'http://localhost:3000/',
-      'https://ban-sach-truc-tuyen.vercel.app/',
+      'http://localhost:5173',
+      'http://localhost:3000',
+      'https://ban-sach-truc-tuyen.vercel.app',
    ];
    app.use(
       cors({
@@ -74,6 +74,7 @@ const bootServer = () => {
          // optionSuccessStatus: 200,
       })
    );
+   app.options('*', cors());
    app.use(
       isProduction
          ? morgan('combined', { stream: accessLogStream })
@@ -82,7 +83,6 @@ const bootServer = () => {
    app.use(express.json());
    app.use(express.urlencoded({ extended: true }));
    app.use(cookieParser());
-
    routes(app);
 
    app.listen(port, () => {
