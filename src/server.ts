@@ -46,6 +46,7 @@ let whiteList = [
    'http://localhost:4090',
    'http://localhost:3000',
    'http://localhost:5173',
+   'https://oauth.casso.vn',
    'https://api-ebook.cyclic.app',
    'https://ban-sach-truc-tuyen.vercel.app',
 ];
