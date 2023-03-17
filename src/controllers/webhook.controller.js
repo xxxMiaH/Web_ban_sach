@@ -33,6 +33,11 @@ class WebhookController {
                message: 'Missing secure-token or wrong secure-token',
             });
          }
+         return res.status(200).json({
+            code: 200,
+            message: 'Success',
+            data: req.body.data,
+         });
          // B2: Thực hiện lấy thông tin giao dịch
          for (let item of req.body.data) {
             // Lấy thông orderId từ nội dung giao dịch
@@ -113,13 +118,13 @@ class WebhookController {
          let accessToken = resToken.access_token;
          //Delete Toàn bộ webhook đã đăng kí trước đó với https://api-ebook.cyclic.app/webhook/handler-bank-transfer
          await webhookUtil.deleteWebhookByUrl(
-            'https://api-ebook.cyclic.app/webhook/handler-bank-transfer',
+            'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer',
             accessToken
          );
          //Tiến hành tạo webhook
          let data = {
             webhook:
-               'https://api-ebook.cyclic.app/webhook/handler-bank-transfer',
+               'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer',
             secure_token: secure_token,
             income_only: true,
          };

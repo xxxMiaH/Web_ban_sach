@@ -1,13 +1,14 @@
 // api/axiosClient.js
 const axios = require('axios');
-const qs = require('qs');
+const { parse, stringify } = require('qs');
 const axiosClient = axios.create({
    baseURL: 'https://oauth.casso.vn/v1',
    headers: {
       'content-type': 'application/json',
    },
-   paramsSerializer: function (params) {
-      return qs.stringify(params, { arrayFormat: 'brackets' });
+   paramsSerializer: {
+      encode: parse,
+      serialize: stringify,
    },
 });
 
