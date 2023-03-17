@@ -10,6 +10,6 @@ router
 router
    .route('/:id')
    .get(OrderController.getAOrder)
-   .put(OrderController.updateAOrder)
+   .patch(OrderController.updateAOrder)
    .delete(OrderController.deleteAOrder);
 export const orderRouter = router;

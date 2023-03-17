@@ -8,7 +8,7 @@ import monent from 'moment';
 // ============
 //Tùy theo ứng dụng của bạn mà có thể thay đổi, ở đây mình mặc định một vài thông số
 //Tiền tố giao dịch
-const transaction_prefix = 'CASSO';
+const transaction_prefix = 'EBOOK';
 // Phân biệt chữ hoa/thường trong tiền tố giao dịch
 const case_insensitive = false;
 //Hạn của đơn hàng là 3 ngày. Quá 3 ngày thì không xử lý
@@ -33,11 +33,11 @@ class WebhookController {
                message: 'Missing secure-token or wrong secure-token',
             });
          }
-         return res.status(200).json({
-            code: 200,
-            message: 'Success',
-            data: req.body.data,
-         });
+         // return res.status(200).json({
+         //    code: 200,
+         //    message: 'Success',
+         //    data: req.body.data,
+         // });
          // B2: Thực hiện lấy thông tin giao dịch
          for (let item of req.body.data) {
             // Lấy thông orderId từ nội dung giao dịch
@@ -56,12 +56,7 @@ class WebhookController {
             )
                continue;
 
-            console.log(orderId);
-            // Bước quan trọng đây.
-            // Sau khi có orderId Thì thực hiện thay đổi các trang thái giao dịch
-            // Ví dụ như kiểm tra orderId có tồn tại trong danh sách các đơn hàng của bạn?
-            // Sau đó cập nhật trạng thái theo orderId và amount nhận được: đủ hay thiếu tiền...
-            // Và một số chức năng khác có thể tùy biến
+            console.log(req.body.data);
          }
          return res.status(200).json({
             code: 200,
@@ -86,7 +81,7 @@ class WebhookController {
          if (!req.body.accountNumber) {
             return res.status(404).json({
                code: 404,
-               message: 'Not foung Account number',
+               message: 'Not found Account number',
             });
          }
          //Lấy token bằng hàm lấy token. Token có hạn 6h nên bạn có thể lưu lại khi nào hết thì gọi hàm lấy token lại
@@ -127,6 +122,8 @@ class WebhookController {
                'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer',
             secure_token: secure_token,
             income_only: true,
+            money: req.body.total_price,
+            captcha: req.body.captcha
          };
          let newWebhook = await webhookUtil.create(data, accessToken);
          // Lấy thông tin về userInfo

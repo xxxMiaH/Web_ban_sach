@@ -28,15 +28,19 @@ module.exports = {
       return res;
    },
    parseOrderId: (caseInsensitive, transactionPrefix, description) => {
+      const captcha = description.split(' ').find((item) => {
+         if (item.indexOf('EBOOK') !== -1) {
+            return item;
+         }
+      });
       // Ở đây mình ở sử dụng regex để parse nội dung chuyển khoản có chứa orderId
-      // CASSO101 => orderId = 101
       let re = new RegExp(transactionPrefix);
       if (!caseInsensitive) re = new RegExp(transactionPrefix, 'i');
-      let matchPrefix = description.match(re);
+      let matchPrefix = captcha.match(re);
       // Không tồn tại tiền tố giao dịch
       if (!matchPrefix) return null;
       let orderId = parseInt(
-         description.substring(transactionPrefix.length, description.length)
+         captcha.substring(transactionPrefix.length, captcha.length)
       );
       return orderId;
    },
