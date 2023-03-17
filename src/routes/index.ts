@@ -2,6 +2,7 @@ import { Express, Request, Response } from 'express';
 import { cartRouter } from './cart.route';
 import { productRouter } from './product.route';
 import { orderRouter } from './order.route';
+import { webhookRouter } from './webhook.route';
 
 import path from 'path';
 
@@ -9,6 +10,7 @@ export const routes = (app: Express) => {
    app.use('/api/carts', cartRouter);
    app.use('/api/products', productRouter);
    app.use('/api/orders', orderRouter);
+   app.use('/api/webhook', webhookRouter);
 
    app.use('/api/post', (req: Request, res: Response) => {
       res.cookie('token', '1234567890', {
