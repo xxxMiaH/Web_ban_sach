@@ -43,6 +43,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 let whiteList = [
+   'https://api-ebook.cyclic.app',
    'http://localhost:4090',
    'http://localhost:3000',
    'http://localhost:5173',
@@ -54,7 +55,7 @@ app.use(
          if (whiteList.indexOf(origin) !== -1) {
             callback(null, true);
          } else {
-            callback(new Error('Not allowed by CORS'));
+            callback(new Error('Not allowed by CORS' + origin));
          }
       },
       credentials: true,
