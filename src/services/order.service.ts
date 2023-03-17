@@ -77,38 +77,18 @@ class OrderService {
       }
    };
 
-   updateOrder = async (data: any): Promise<object> => {
+   deleteAOrder = async (
+      id: Schema.Types.ObjectId | string
+   ): Promise<object> => {
       try {
-         const order = await OrderModel.findById(data.idOrder);
+         const order = await OrderModel.findById(id);
          // let results
-         if (order) {
-            var results = await OrderModel.findByIdAndUpdate(order.id, data);
-         } else {
+         if (!order) {
             throw new Error('Something went wrong! Please try again later!');
          }
+         const deleteOder = await OrderModel.findByIdAndDelete(id);
          return {
-            status: 'Successfully update Order',
-            results,
-            data,
-         };
-      } catch (err: any) {
-         console.log(err);
-         throw new Error(err);
-      }
-   };
-   deleteOder = async (data: any): Promise<object> => {
-      try {
-         const order = await OrderModel.findById(data.id);
-         // let results
-         if (order) {
-            var results = await OrderModel.findByIdAndDelete(order.id, data);
-         } else {
-            throw new Error('Something went wrong! Please try again later!');
-         }
-         return {
-            status: 'Successfully delete Order',
-            results,
-            data,
+            deleteOder,
          };
       } catch (err: any) {
          console.log(err);
@@ -116,9 +96,12 @@ class OrderService {
       }
    };
 
-   getAOrder = async (data: any): Promise<object> => {
+   getAOrder = async (
+      id: Schema.Types.ObjectId | string,
+      data: any
+   ): Promise<object> => {
       try {
-         const order = await OrderModel.find(data);
+         const order = await OrderModel.findById(id);
          // let results
          if (!order) {
             throw new Error('Something went wrong! Please try again later!');
@@ -131,22 +114,26 @@ class OrderService {
          throw new Error(err);
       }
    };
-}
 
-function sortObject(obj: any) {
-   let sorted: { [key: string]: string } = {};
-   let str = [];
-   let key;
-   for (key in obj) {
-      if (obj.hasOwnProperty(key)) {
-         str.push(encodeURIComponent(key));
+   updateAOrder = async (
+      id: Schema.Types.ObjectId | string,
+      data: any
+   ): Promise<object> => {
+      try {
+         const order = await OrderModel.findById(id);
+         // let results
+         if (!order) {
+            throw new Error('Something went wrong! Please try again later!');
+         }
+         const updateOder = await OrderModel.findByIdAndUpdate(id, data);
+         return {
+            updateOder,
+         };
+      } catch (err: any) {
+         console.log(err);
+         throw new Error(err);
       }
-   }
-   str.sort();
-   for (key = 0; key < str.length; key++) {
-      sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, '+');
-   }
-   return sorted;
+   };
 }
 
 export default new OrderService();
