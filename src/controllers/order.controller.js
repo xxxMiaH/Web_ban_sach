@@ -19,7 +19,11 @@ export default new (class OrderController {
       try {
          const result = await OrderService.createOrder(req.cookies, req.body);
 
-         res.clearCookie('cart');
+         res.clearCookie('cart', {
+            path: '/',
+            httpOnly: true,
+            secure: true,
+         });
          return res.status(200).json(result);
       } catch (err) {
          console.log({ errOrder: err.message });
