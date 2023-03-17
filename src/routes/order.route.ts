@@ -9,6 +9,7 @@ router
    .post(OrderController.createOrder)
    .put(OrderController.updateOrder)
    .delete(OrderController.deleteOrder);
-
-router.route('/get.a.order').get(OrderController.getAOrder);
+router.route('/:id').get(OrderController.getAOrder)
+   .put(OrderController.updateAOrder)
+   .delete(OrderController.deleteAOrder);
 export const orderRouter = router;

@@ -54,11 +54,34 @@ export default new (class OrderController {
 
    getAOrder = async (req, res) => {
       try {
-         const result = await OrderService.getAOrder(req.body);
+         const result = await OrderService.getAOrder(req.params.id,req.body);
          return res.status(200).json(result);
       } catch (err) {
          console.log({ errOrder: err.message });
          return res.status(500).json({ message: err.message });
       }
    };
+   updateAOrder = async (req, res) => {
+      try {
+         const result = await OrderService.updateAOrder(
+            req.params.id,
+            req.body);
+         return res.status(200).json(result);
+      } catch (err) {
+         console.log({ errOrder: err.message });
+         return res.status(500).json({ message: err.message });
+      }
+   };
+   deleteAOrder = async (req, res) => {
+      try {
+         const result = await OrderService.deleteAOrder(
+            req.params.id);
+         return res.status(200).json(result);
+      } catch (err) {
+         console.log({ errOrder: err.message });
+         return res.status(500).json({ message: err.message });
+      }
+   };
+
+
 })();

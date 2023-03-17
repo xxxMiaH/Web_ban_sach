@@ -101,7 +101,7 @@ class OrderService {
          const order = await OrderModel.findById(data.id);
          // let results
          if (order) {
-            var results = await OrderModel.findByIdAndDelete(order.id, data);
+            var results = await OrderModel.findByIdAndDelete(order.id);
          } else {
             throw new Error('Something went wrong! Please try again later!');
          }
@@ -116,15 +116,54 @@ class OrderService {
       }
    };
 
-   getAOrder = async (data: any): Promise<object> => {
+   getAOrder = async (
+      id: Schema.Types.ObjectId | string,
+      data: any): Promise<object> => {
       try {
-         const order = await OrderModel.find(data);
+         const order = await OrderModel.findById(id);
          // let results
          if (!order) {
             throw new Error('Something went wrong! Please try again later!');
          }
          return {
             order,
+         };
+      } catch (err: any) {
+         console.log(err);
+         throw new Error(err);
+      }
+   };
+
+   updateAOrder = async (
+      id: Schema.Types.ObjectId | string,
+      data: any): Promise<object> => {
+      try {
+         const order = await OrderModel.findById(id);
+         // let results
+         if (!order) {
+            throw new Error('Something went wrong! Please try again later!');
+         }
+         const updateOder = await OrderModel.findByIdAndUpdate(id,data);
+         return {
+            updateOder,
+         };
+      } catch (err: any) {
+         console.log(err);
+         throw new Error(err);
+      }
+   };
+
+   deleteAOrder = async (
+      id: Schema.Types.ObjectId | string): Promise<object> => {
+      try {
+         const order = await OrderModel.findById(id);
+         // let results
+         if (!order) {
+            throw new Error('Something went wrong! Please try again later!');
+         }
+         const deleteOder = await OrderModel.findByIdAndDelete(id);
+         return {
+            deleteOder,
          };
       } catch (err: any) {
          console.log(err);
