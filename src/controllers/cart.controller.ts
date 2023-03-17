@@ -72,7 +72,7 @@ class CartController {
          for (let entry of Object.entries(data)) {
             const [key, value] = entry;
             if (key === 'result' && Object.keys(value).length === 0) {
-               next();
+               await this.clearCookie(req, res);
             }
          }
          return res.status(200).json(data);
@@ -90,15 +90,14 @@ class CartController {
       }
    };
 
-   clearCookie = async (req: Request, res: Response): Promise<Response> => {
+   clearCookie = async (req: Request, res: Response) => {
       try {
          let cookies = req.cookies;
          for (let cookie in cookies) {
             res.clearCookie(cookie);
          }
-         return res.status(200).json({ message: 'Clear cookie success' });
       } catch (err: any) {
-         return res.status(500).json(err.message);
+         throw new Error(err.message);
       }
    };
 }
