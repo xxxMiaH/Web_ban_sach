@@ -33,6 +33,7 @@ class WebhookController {
                message: 'Missing secure-token or wrong secure-token',
             });
          }
+         console.log(req.body.data);
          // return res.status(200).json({
          //    code: 200,
          //    message: 'Success',
@@ -56,7 +57,7 @@ class WebhookController {
             )
                continue;
 
-            console.log(req.body.data);
+            // console.log(req.body.data);
          }
          return res.status(200).json({
             code: 200,
