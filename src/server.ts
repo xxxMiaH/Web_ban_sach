@@ -43,13 +43,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 let whiteList = [
-   'http://localhost:5173',
    'http://localhost:3000',
+   'http://localhost:5173',
    'https://ban-sach-truc-tuyen.vercel.app',
 ];
 app.use(
    cors({
-      credentials: true,
       origin: function (origin: any, callback: any) {
          if (whiteList.indexOf(origin) !== -1) {
             callback(null, true);
@@ -57,7 +56,7 @@ app.use(
             callback(new Error('Not allowed by CORS'));
          }
       },
-
+      credentials: true,
       allowedHeaders: [
          'Authorization',
          'Content-Type',
@@ -70,7 +69,7 @@ app.use(
       ],
       methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
       exposedHeaders: ['Access-Control-Allow-Origin'],
-      // preflightContinue: true,
+      preflightContinue: true,
       // optionSuccessStatus: 200,
    })
 );
