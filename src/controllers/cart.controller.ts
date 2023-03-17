@@ -93,14 +93,13 @@ class CartController {
    clearCookie = async (
       req: Request,
       res: Response,
-      data: any
    ): Promise<Response> => {
       try {
          res.clearCookie('cart', {
             domain: 'api-ebook.cyclic.app',
             path: '/',
          });
-         return res.status(200).json({ data, message: 'Clear cookie success' });
+         return res.status(200).json({ message: 'Clear cookie success' });
       } catch (err: any) {
          return res.status(500).json(err.message);
       }
