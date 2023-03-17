@@ -10,10 +10,6 @@ export const routes = (app: Express) => {
    app.use('/api/products', productRouter);
    app.use('/api/orders', orderRouter);
 
-   app.use('/testpost', (req, res, next) => {
-      res.sendFile(path.join(__dirname, 'index.html'));
-   });
-
    app.use('/api/post', (req: Request, res: Response) => {
       res.cookie('token', '1234567890', {
          // domain: 'localhost',

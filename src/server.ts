@@ -43,6 +43,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 let whiteList = [
+   'http://localhost:4090',
    'http://localhost:3000',
    'http://localhost:5173',
    'https://ban-sach-truc-tuyen.vercel.app',

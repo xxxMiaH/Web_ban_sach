@@ -24,6 +24,7 @@ export default new (class OrderController {
             path: '/',
             httpOnly: true,
             secure: true,
+            sameSite: 'none',
          });
          return res.status(200).json(result);
       } catch (err) {

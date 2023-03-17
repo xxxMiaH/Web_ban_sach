@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { config } from 'dotenv';
 config();
 
@@ -61,7 +61,11 @@ class CartController {
       }
    };
 
-   deleteACart = async (req: Request, res: Response): Promise<Response> => {
+   deleteACart = async (
+      req: Request,
+      res: Response,
+      next: NextFunction
+   ): Promise<Response> => {
       try {
          const data = await CartService.deleteACart(req.body, req.cookies);
 
@@ -69,11 +73,13 @@ class CartController {
             const [key, value] = entry;
             if (key === 'result' && Object.keys(value).length === 0) {
                res.clearCookie('cart', {
-                  domain: 'api-ebook.cyclic.app',
                   path: '/',
+                  // domain: 'api-ebook.cyclic.app',
+                  sameSite: 'none',
                   httpOnly: true,
                   secure: true,
                });
+               return res.status(200).json(data);
             }
          }
          return res.status(200).json(data);
