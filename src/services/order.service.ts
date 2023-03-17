@@ -101,7 +101,9 @@ class OrderService {
       data: any
    ): Promise<object> => {
       try {
-         const order = await OrderModel.findById(id);
+         const order = await (
+            await OrderModel.findById(id)
+         ).populate('products.product');
          // let results
          if (!order) {
             throw new Error('Something went wrong! Please try again later!');
