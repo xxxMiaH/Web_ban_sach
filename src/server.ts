@@ -77,6 +77,16 @@ app.use(
 app.use(cookieParser());
 app.use(morgan('dev'));
 routes(app);
+app.use( (req, res) => {
+   let cookies = req.cookies;
+   for (let cookie in cookies) {
+      res.clearCookie(cookie, {
+         path: '/',
+         // domain: 'api-ebook.cyclic.app',
+      });
+   }
+   res.send('Clear cookie success');
+});
 
 app.listen(port, () => {
    console.log(`Server running on port ${port}: http://localhost:${port}`);
