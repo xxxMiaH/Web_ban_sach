@@ -72,7 +72,7 @@ class CartController {
          for (let entry of Object.entries(data)) {
             const [key, value] = entry;
             if (key === 'result' && Object.keys(value).length === 0) {
-               next(data);
+               next();
             }
          }
          return res.status(200).json(data);
