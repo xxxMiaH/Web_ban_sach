@@ -43,10 +43,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 let whiteList = [
-   'https://api-ebook.cyclic.app',
    'http://localhost:4090',
    'http://localhost:3000',
    'http://localhost:5173',
+   'https://api-ebook.cyclic.app',
    'https://ban-sach-truc-tuyen.vercel.app',
 ];
 app.use(
