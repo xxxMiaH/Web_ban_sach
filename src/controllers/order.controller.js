@@ -20,11 +20,10 @@ export default new (class OrderController {
          const result = await OrderService.createOrder(req.cookies, req.body);
 
          res.clearCookie('cart', {
-            domain: 'api-ebook.cyclic.app',
             path: '/',
+            sameSite: 'none',
             httpOnly: true,
             secure: true,
-            sameSite: 'none',
          });
          return res.status(200).json(result);
       } catch (err) {
