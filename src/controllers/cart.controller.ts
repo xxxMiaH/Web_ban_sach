@@ -72,7 +72,11 @@ class CartController {
          for (let entry of Object.entries(data)) {
             const [key, value] = entry;
             if (key === 'result' && Object.keys(value).length === 0) {
-               next();
+               res.clearCookie('cart', {
+                  path: '/',
+                  // domain: 'api-ebook.cyclic.app',
+               });
+               return res.status(200).json(data);
             }
          }
          return res.status(200).json(data);
@@ -87,20 +91,6 @@ class CartController {
          return res.status(200).json(result);
       } catch (err: any) {
          return res.status(500).json(err.message);
-      }
-   };
-
-   clearCookie = async (req: Request, res: Response) => {
-      try {
-         let cookies = req.cookies;
-         for (let cookie in cookies) {
-            res.clearCookie(cookie, {
-               path: '/',
-               // domain: 'api-ebook.cyclic.app',
-            });
-         }
-      } catch (err: any) {
-         throw new Error(err.message);
       }
    };
 }
