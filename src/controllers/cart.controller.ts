@@ -94,7 +94,10 @@ class CartController {
       try {
          let cookies = req.cookies;
          for (let cookie in cookies) {
-            res.clearCookie(cookie);
+            res.clearCookie(cookie, {
+               path: '/',
+               // domain: 'api-ebook.cyclic.app',
+            });
          }
       } catch (err: any) {
          throw new Error(err.message);

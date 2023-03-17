@@ -50,13 +50,13 @@ let whiteList = [
 ];
 app.use(
    cors({
-      // origin: function (origin: any, callback: any) {
-      //    if (whiteList.indexOf(origin) !== -1) {
-      //       callback(null, true);
-      //    } else {
-      //       callback(new Error('Not allowed by CORS'));
-      //    }
-      // },
+      origin: function (origin: any, callback: any) {
+         if (whiteList.indexOf(origin) !== -1) {
+            callback(null, true);
+         } else {
+            callback(new Error('Not allowed by CORS'));
+         }
+      },
       credentials: true,
       allowedHeaders: [
          'Authorization',
