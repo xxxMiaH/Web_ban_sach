@@ -111,7 +111,8 @@ class WebhookController {
          // Lấy token bằng hàm lấy token. Token có hạn 6h nên bạn có thể lưu lại khi nào hết thì gọi hàm lấy token lại
          // api_key có thể thay thế nhận từ nhiều user
          let resToken = await getTokenUtil.getTokenByAPIKey(api_key);
-         let accessToken = resToken.access_token;
+         console.log(resToken);
+         let accessToken = resToken;
          //Delete Toàn bộ webhook đã đăng kí trước đó với https://api-ebook.cyclic.app/webhook/handler-bank-transfer
          await webhookUtil.deleteWebhookByUrl(
             'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer',
@@ -124,7 +125,7 @@ class WebhookController {
             secure_token: secure_token,
             income_only: true,
             money: req.body.total_price,
-            captcha: req.body.captcha
+            captcha: req.body.captcha,
          };
          let newWebhook = await webhookUtil.create(data, accessToken);
          // Lấy thông tin về userInfo
