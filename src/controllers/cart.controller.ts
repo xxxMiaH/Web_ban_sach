@@ -75,6 +75,9 @@ class CartController {
                res.clearCookie('cart', {
                   path: '/',
                   // domain: 'api-ebook.cyclic.app',
+                  sameSite: 'none',
+                  httpOnly: true,
+                  secure: true,
                });
                return res.status(200).json(data);
             }
