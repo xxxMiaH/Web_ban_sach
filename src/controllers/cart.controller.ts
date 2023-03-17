@@ -69,6 +69,7 @@ class CartController {
             const [key, value] = entry;
             if (key === 'result' && Object.keys(value).length === 0) {
                res.clearCookie('cart', {
+                  domain: 'api-ebook.cyclic.app',
                   path: '/',
                   httpOnly: true,
                   secure: true,
