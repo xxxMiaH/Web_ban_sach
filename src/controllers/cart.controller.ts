@@ -90,15 +90,12 @@ class CartController {
       }
    };
 
-   clearCookie = async (
-      req: Request,
-      res: Response,
-   ): Promise<Response> => {
+   clearCookie = async (req: Request, res: Response): Promise<Response> => {
       try {
-         res.clearCookie('cart', {
-            domain: 'api-ebook.cyclic.app',
-            path: '/',
-         });
+         let cookies = req.cookies;
+         for (let cookie in cookies) {
+            res.clearCookie(cookie);
+         }
          return res.status(200).json({ message: 'Clear cookie success' });
       } catch (err: any) {
          return res.status(500).json(err.message);
