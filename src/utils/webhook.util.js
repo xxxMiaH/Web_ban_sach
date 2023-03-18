@@ -1,30 +1,25 @@
 const api = require('./api');
 module.exports = {
-   create: async (data, accessToken) => {
-      api.defaults.headers.Authorization = accessToken;
+   create: async (data) => {
       let res = await api.post('/webhooks', data);
       return res;
    },
-   getDetailWebhookById: async (webhookId, accessToken) => {
-      api.defaults.headers.Authorization = accessToken;
+   getDetailWebhookById: async (webhookId) => {
       let res = await api.get(`/webhooks/${webhookId}`);
       return res;
    },
-   updateWebhookById: async (webhookId, accessToken, data) => {
-      api.defaults.headers.Authorization = accessToken;
+   updateWebhookById: async (webhookId, data) => {
       let res = await api.put(`/webhooks/${webhookId}`, data);
       return res;
    },
-   deleteWebhookById: async (webhookId, accessToken) => {
-      api.defaults.headers.Authorization = accessToken;
+   deleteWebhookById: async (webhookId) => {
       let res = await api.delete(`/webhooks/${webhookId}`);
       return res;
    },
-   deleteWebhookByUrl: async (urlWebhook, accessToken) => {
+   deleteWebhookByUrl: async (urlWebhook) => {
       // Thêm url vào query để delete https://oauth.casso.vn/v1/webhooks?webhook=https://website-cua-ban.com/api/webhook
       let query = { params: { webhook: urlWebhook } };
-      api.defaults.headers.Authorization = accessToken;
-      var res = await api.delete(`/webhooks`, query);
+      let res = await api.delete(`/webhooks`, query);
       return res;
    },
    parseOrderId: (caseInsensitive, transactionPrefix, description) => {
@@ -34,6 +29,7 @@ module.exports = {
          }
       });
       // Ở đây mình ở sử dụng regex để parse nội dung chuyển khoản có chứa orderId
+      if (!captcha) return null;
       let re = new RegExp(transactionPrefix);
       if (!caseInsensitive) re = new RegExp(transactionPrefix, 'i');
       let matchPrefix = captcha.match(re);

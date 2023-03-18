@@ -2,7 +2,7 @@ let webhookUtil = require('../utils/webhook.util');
 let getTokenUtil = require('../utils/get_token.util');
 let syncUtil = require('../utils/sync.util');
 let userUtil = require('../utils/get_user_info.util');
-import monent from 'moment';
+import OrderModel from '../models/Order.model';
 //DEMO Xây dựng webhook của bạn
 //Router này sẽ là webhook nhận thông tin giao dịch từ casso gọi qua được bảo mật bằng secure_token trong header
 // ============
@@ -57,12 +57,33 @@ class WebhookController {
             )
                continue;
 
-            // console.log(req.body.data);
+            // Đối chiếu trong database xem có giao dịch nào chưa được xử lý hay không
+            /**
+             * B1: Tìm captcha theo orderId
+             * B2: Kiểm tra captcha có tồn tại hay không
+             * B3: Kiểm tra captcha có trạng thái là chưa thanh toán hay không
+             * B4: Kiểm tra total_price của captcha có bằng amount của giao dịch hay không
+             * B5: Nếu có thì update trạng thái của captcha là đã thanh toán
+             * B6: Hoàn tất
+             */
+            // Nếu có thì xử lý giao dịch
+
+            const orders = await OrderModel.find({});
+            const order = orders.find((order) => {
+               if (
+                  order.captcha.substring(5) === orderId &&
+                  order.status === 'pending' &&
+                  order.total_price === item.amount
+               ) {
+                  return order;
+               }
+            });
+            if (!order) continue;
          }
          return res.status(200).json({
             code: 200,
             message: 'success',
-            data: null,
+            data: order,
          });
       } catch (error) {
          console.log(error);
@@ -76,21 +97,17 @@ class WebhookController {
 
    usersPaid = async (req, res) => {
       try {
-         console.log(req.body);
          // Để thực hiện tính năng đồng bộ cần có Số tài khoản, Bạn có thể validate bằng schema ở middlewares
          // Hoặc có thể kiểm tra trong đây luôn
+         console.log(req.body);
          if (!req.body.accountNumber) {
             return res.status(404).json({
                code: 404,
-               message: 'Not found Account number',
+               message: 'Not foung Account number',
             });
          }
-         //Lấy token bằng hàm lấy token. Token có hạn 6h nên bạn có thể lưu lại khi nào hết thì gọi hàm lấy token lại
-         let resToken = await getTokenUtil.getTokenByAPIKey(api_key);
-         console.log(resToken);
-         let accessToken = resToken.access_token;
-         //Tiến hành gọi hàm đồng bộ qua casso
-         await syncUtil.syncTransaction(req.body.accountNumber, accessToken);
+         // Tiến hành gọi hàm đồng bộ qua casso
+         await syncUtil.syncTransaction(req.body.accountNumber);
          return res.status(200).json({
             code: 200,
             message: 'success',
@@ -110,13 +127,12 @@ class WebhookController {
       try {
          // Lấy token bằng hàm lấy token. Token có hạn 6h nên bạn có thể lưu lại khi nào hết thì gọi hàm lấy token lại
          // api_key có thể thay thế nhận từ nhiều user
-         let resToken = await getTokenUtil.getTokenByAPIKey(api_key);
-         console.log(resToken);
-         let accessToken = resToken;
+         // let resToken = await getTokenUtil.getTokenByAPIKey(api_key);
+         // console.log(resToken);
+         // let accessToken = resToken;
          //Delete Toàn bộ webhook đã đăng kí trước đó với https://api-ebook.cyclic.app/webhook/handler-bank-transfer
          await webhookUtil.deleteWebhookByUrl(
-            'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer',
-            accessToken
+            'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer'
          );
          //Tiến hành tạo webhook
          let data = {
@@ -127,23 +143,23 @@ class WebhookController {
             money: req.body.total_price,
             captcha: req.body.captcha,
          };
-         let newWebhook = await webhookUtil.create(data, accessToken);
+         let newWebhook = await webhookUtil.create(data);
          // Lấy thông tin về userInfo
-         let userInfo = await userUtil.getDetailUser(accessToken);
+         let userInfo = await userUtil.getDetailUser();
          return res.status(200).json({
             code: 200,
             message: 'success',
             data: {
-               webhook: newWebhook.data,
+               webhook: newWebhook,
                userInfo: userInfo.data,
             },
          });
       } catch (error) {
-         console.log(error);
+         console.log(error.message);
          return res.status(500).json({
             code: 500,
             message: 'Internal server error',
-            data: null,
+            data: error,
          });
       }
    };

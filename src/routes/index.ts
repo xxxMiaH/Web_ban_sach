@@ -4,8 +4,6 @@ import { productRouter } from './product.route';
 import { orderRouter } from './order.route';
 import { webhookRouter } from './webhook.route';
 
-import path from 'path';
-
 export const routes = (app: Express) => {
    app.use('/api/carts', cartRouter);
    app.use('/api/products', productRouter);

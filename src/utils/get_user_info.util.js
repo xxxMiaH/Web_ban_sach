@@ -1,7 +1,6 @@
 const api = require('./api');
 module.exports = {
-   getDetailUser: async (accessToken) => {
-      api.defaults.headers.Authorization = accessToken;
+   getDetailUser: async () => {
       let res = await api.get(`/userInfo`);
       return res;
    },

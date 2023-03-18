@@ -10,8 +10,8 @@ class OrderService {
    getAllOrder = async (): Promise<object> => {
       try {
          const data = await OrderModel.find({});
-
          if (!data) throw new Error('Order not found');
+
          let orderCompleted: number = data.reduce((acc: any, cur: any) => {
             if (cur.status === 'completed') {
                acc += cur.total_price;
