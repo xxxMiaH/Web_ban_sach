@@ -12,30 +12,34 @@ class OrderService {
          const data = await OrderModel.find({});
          if (!data) throw new Error('Order not found');
 
-         const caseInsensitive = false;
-         const indexEBOOK = 'ND:EBOOKIiFFSK; tai iPay'.indexOf('EBOOK');
-         const captcha = 'ND:EBOOKIiFFSK; tai iPay'.substring(
-            indexEBOOK + 5,
-            indexEBOOK + 11
-         );
-         // Ở đây mình ở sử dụng regex để parse nội dung chuyển khoản có chứa orderId
-         if (!captcha) return null;
-         let re = new RegExp('EBOOK');
-         if (!caseInsensitive) re = new RegExp('EBOOK', 'i');
-         let matchPrefix = captcha.match(re);
-         // Không tồn tại tiền tố giao dịch
-         if (!matchPrefix) return null;
-         let orderId = parseInt(
-            captcha.substring('EBOOK'.length, captcha.length)
-         );
-         console.log(orderId);
-         const order = data.find((order) => {
+         // const caseInsensitive = false;
+         // const indexEBOOK = 'ND:EBOOKIiFFSK; tai iPay'.indexOf('EBOOK');
+         // const captcha = 'ND:EBOOKIiFFSK; tai iPay'.substring(
+         //    indexEBOOK + 5,
+         //    indexEBOOK + 11
+         // );
+         // // Ở đây mình ở sử dụng regex để parse nội dung chuyển khoản có chứa orderId
+         // if (!captcha) return null;
+         // let re = new RegExp('EBOOK');
+         // if (!caseInsensitive) re = new RegExp('EBOOK', 'i');
+         // let matchPrefix = captcha.match(re);
+         // // Không tồn tại tiền tố giao dịch
+         // if (!matchPrefix) return null;
+         // let orderId = parseInt(
+         //    captcha.substring('EBOOK'.length, captcha.length)
+         // );
+         // console.log(orderId);
+         const orderData = data.find((order) => {
             console.log(order.captcha.substring(5));
-            if (order.captcha.substring(5) === 'qwe123') {
+            if (
+               order.captcha.substring(5) === 'IiFFSk' &&
+               order.status === 'pending' &&
+               order.total_price === 1000
+            ) {
                return order;
             }
          });
-         console.log(order);
+         console.log(orderData);
          let orderCompleted: number = data.reduce((acc: any, cur: any) => {
             if (cur.status === 'completed') {
                acc += cur.total_price;

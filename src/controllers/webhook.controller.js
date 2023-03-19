@@ -33,7 +33,7 @@ class WebhookController {
                message: 'Missing secure-token or wrong secure-token',
             });
          }
-         console.log(req.body.data);
+         // console.log(req.body.data);
          // return res.status(200).json({
          //    code: 200,
          //    message: 'Success',
@@ -41,6 +41,7 @@ class WebhookController {
          // });
          // B2: Thực hiện lấy thông tin giao dịch
          for (let item of req.body.data) {
+            console.log(item);
             // Lấy thông orderId từ nội dung giao dịch
             let orderId = webhookUtil.parseOrderId(
                case_insensitive,
@@ -69,7 +70,7 @@ class WebhookController {
             // Nếu có thì xử lý giao dịch
 
             const orders = await OrderModel.find({});
-            const order = orders.find((order) => {
+            const orderData = orders.find((order) => {
                if (
                   order.captcha.substring(5) === orderId &&
                   order.status === 'pending' &&
@@ -78,16 +79,16 @@ class WebhookController {
                   return order;
                }
             });
-            if (!order) continue;
+            if (!orderData) continue;
             await OrderModel.updateOne(
-               { _id: order._id },
+               { _id: orderData._id },
                { status: 'shipping' }
             );
          }
          return res.status(200).json({
             code: 200,
             message: 'success',
-            data: order,
+            data: orderData,
          });
       } catch (error) {
          console.log(error);
