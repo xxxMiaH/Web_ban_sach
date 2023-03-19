@@ -5,8 +5,10 @@ import { Request } from 'express';
 
 import CartModel from '../models/Cart.model';
 import OrderModel from '../models/Order.model';
+import ProductModel from '../models/Product.model';
 
 import webhookUtil from '../utils/webhook.util';
+
 
 class OrderService {
    getAllOrder = async (): Promise<object> => {
@@ -77,6 +79,14 @@ class OrderService {
          //    products: cartProduct,
          //    total_price: oldPrice,
          // });
+
+         const products = [];
+         for(let i = 0 ; i < cartProduct.length ; i ++){
+            const product = await ProductModel.findById(cartProduct[i].product);
+            const newStock = product.stock - cartProduct[i].quantity;
+
+            await ProductModel.findByIdAndUpdate(cartProduct[i].product, {stock: newStock});
+         } 
 
          const results = await OrderModel.create({
             customer: data,
