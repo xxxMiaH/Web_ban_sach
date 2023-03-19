@@ -81,18 +81,16 @@ class WebhookController {
                }
             });
             if (!orderData) continue;
-            const isUpdated = await OrderModel.updateOne(
+            await OrderModel.updateOne(
                { _id: orderData._id },
                { status: 'paid' }
             );
-            if (isUpdated) {
-               return res.status(200).json({
-                  code: 200,
-                  message: 'success',
-                  data: orderData,
-               });
-            }
          }
+         return res.status(200).json({
+            code: 200,
+            message: 'success',
+            data: orderData,
+         });
       } catch (error) {
          console.log(error);
          return res.status(500).json({
@@ -188,10 +186,11 @@ class WebhookController {
                message: 'Not found order',
             });
          }
-         await webhookUtil.deleteWebhookByUrl(
-            'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer'
-         );
+
          if (order.status === 'paid') {
+            await webhookUtil.deleteWebhookByUrl(
+               'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer'
+            );
             return res.status(200).json({
                code: 200,
                message: 'Đã thanh toán thành công!',
