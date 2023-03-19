@@ -24,10 +24,10 @@ module.exports = {
    },
    parseOrderId: (caseInsensitive, transactionPrefix, description) => {
       const indexEBOOK = description.indexOf('EBOOK');
-      console.log(indexEBOOK);
+      // console.log(indexEBOOK);
       const captcha = description.substring(indexEBOOK + 5, indexEBOOK + 11);
 
-      console.log(captcha);
+      // console.log(captcha);
       return captcha;
       // Ở đây mình ở sử dụng regex để parse nội dung chuyển khoản có chứa orderId
       // if (!captcha) return null;

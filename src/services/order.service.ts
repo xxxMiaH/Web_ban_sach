@@ -14,6 +14,23 @@ class OrderService {
          const data = await OrderModel.find({});
          if (!data) throw new Error('Order not found');
 
+         // let orderId = webhookUtil.parseOrderId(
+         //    false,
+         //    'EBOOK',
+         //    'ND:EBOOKIiFFSk; tai iPay'
+         // );
+
+         // const orderData = data.find((order) => {
+         //    if (
+         //       order.captcha.substring(5) === orderId &&
+         //       order.status === 'pending' &&
+         //       order.total_price === 1000
+         //    ) {
+         //       return order;
+         //    }
+         // });
+
+         // console.log(orderData);
          let orderCompleted: number = data.reduce((acc: any, cur: any) => {
             if (cur.status === 'completed') {
                acc += cur.total_price;

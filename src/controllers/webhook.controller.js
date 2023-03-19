@@ -81,16 +81,18 @@ class WebhookController {
                }
             });
             if (!orderData) continue;
-            await OrderModel.updateOne(
+            const isUpdated = await OrderModel.updateOne(
                { _id: orderData._id },
                { status: 'shipping' }
             );
+            if (isUpdated) {
+               return res.status(200).json({
+                  code: 200,
+                  message: 'success',
+                  data: orderData,
+               });
+            }
          }
-         return res.status(200).json({
-            code: 200,
-            message: 'success',
-            data: orderData,
-         });
       } catch (error) {
          console.log(error);
          return res.status(500).json({
