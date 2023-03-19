@@ -1,6 +1,5 @@
 import { ObjectId, Schema } from 'mongoose';
 import { Request } from 'express';
-const generate  = require( 'nanoid/async/generate');
 
 import { ICart } from '../interfaces/interfaces.model';
 import CartModel from '../models/Cart.model';
@@ -81,10 +80,6 @@ class CartService {
             return { status: 'Successfully updated', result };
          }
          //* Chưa có giỏ hàng
-         const captcha = await generate (
-            '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-            6
-         );
          ;
          const result = await CartModel.create({
             products: [
@@ -94,7 +89,6 @@ class CartService {
                },
             ],
             total_price: price * quantityBody,
-            captcha: `EBOOK${captcha}`,
          });
          return {
             status: 'Successfully created',

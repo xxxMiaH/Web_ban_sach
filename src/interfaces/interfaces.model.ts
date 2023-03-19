@@ -8,7 +8,6 @@ export interface ICart {
       }
    ];
    total_price: number;
-   captcha: string;
 }
 
 export interface IProduct {

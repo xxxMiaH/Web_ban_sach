@@ -20,10 +20,6 @@ const CartSchema = new Schema<ICart>(
          required: true,
          default: 0,
       },
-      captcha: {
-         type: String,
-         default: '',
-      }
    },
    {
       timestamps: true,
