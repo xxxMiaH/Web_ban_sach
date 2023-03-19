@@ -14,7 +14,7 @@ import { connectDB } from './config/connectDB';
 const app = express();
 const port = process.env.PORT;
 
-connectDB();
+await connectDB();
 
 // const isProduction = process.env.BUILD_CODE === 'production'; // để phân biệt dev và production
 // tạo file log theo ngày tới thư mục log trong thư mục gốc của project

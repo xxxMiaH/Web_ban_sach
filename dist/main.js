@@ -156,10 +156,10 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!*************************!*\
   !*** ./build/server.js ***!
   \*************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ \"express\");\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dotenv */ \"dotenv\");\n/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(dotenv__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cors */ \"cors\");\n/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var morgan__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! morgan */ \"morgan\");\n/* harmony import */ var morgan__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(morgan__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var cookie_parser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cookie-parser */ \"cookie-parser\");\n/* harmony import */ var cookie_parser__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(cookie_parser__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _routes_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./routes/index */ \"./build/routes/index.js\");\n/* harmony import */ var _config_connectDB__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./config/connectDB */ \"./build/config/connectDB.js\");\n\n\n(0,dotenv__WEBPACK_IMPORTED_MODULE_1__.config)();\n\n\n\n\n\nvar app = express__WEBPACK_IMPORTED_MODULE_0___default()();\nvar port = process.env.PORT;\n(0,_config_connectDB__WEBPACK_IMPORTED_MODULE_6__.connectDB)();\n// const isProduction = process.env.BUILD_CODE === 'production'; // để phân biệt dev và production\n// tạo file log theo ngày tới thư mục log trong thư mục gốc của project\n// const accessLogStream = createStream('access.log', {\n//    interval: '1d', // rotate daily\n//    path: path.join(__dirname, 'log'),\n// });\n// app.use((req, res, next) => {\n//    res.setHeader(\n//       'Access-Control-Allow-Origin',\n//       'https://ban-sach-truc-tuyen.vercel.app'\n//    );\n//    res.setHeader('Access-Control-Allow-Credentials', 'true');\n//    res.setHeader(\n//       'Access-Control-Allow-Methods',\n//       'GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH'\n//    );\n//    res.setHeader(\n//       'Access-Control-Allow-Headers',\n//       'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'\n//    );\n//    next();\n// });\napp.use(express__WEBPACK_IMPORTED_MODULE_0___default().json());\napp.use(express__WEBPACK_IMPORTED_MODULE_0___default().urlencoded({\n  extended: true\n}));\nvar whiteList = ['http://localhost:4090', 'http://localhost:3000', 'http://localhost:5173', 'https://oauth.casso.vn', 'https://api-ebook.cyclic.app', 'https://ban-sach-truc-tuyen.vercel.app'];\napp.use(cors__WEBPACK_IMPORTED_MODULE_2___default()({\n  // origin: function (origin: any, callback: any) {\n  //    if (whiteList.indexOf(origin) !== -1) {\n  //       callback(null, true);\n  //    } else {\n  //       callback(new Error('Not allowed by CORS'));\n  //    }\n  // },\n  origin: whiteList,\n  credentials: true,\n  allowedHeaders: ['Authorization', 'Content-Type', 'Access-Control-Request-Method', 'X-Requested-With', 'Accept', 'Access-Control-Request-Headers', 'Origin', 'Access-Control-Allow-Headers'],\n  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],\n  exposedHeaders: ['Access-Control-Allow-Origin', 'x-auth-token'],\n  preflightContinue: true\n  // optionSuccessStatus: 200,\n}));\n\napp.use(cookie_parser__WEBPACK_IMPORTED_MODULE_4___default()());\napp.use(morgan__WEBPACK_IMPORTED_MODULE_3___default()('dev'));\n(0,_routes_index__WEBPACK_IMPORTED_MODULE_5__.routes)(app);\napp.listen(port, function () {\n  console.log(\"Server running on port \".concat(port, \": http://localhost:\").concat(port));\n});\n\n//# sourceURL=webpack://apiwebbansach/./build/server.js?");
+eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {\n__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ \"express\");\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! dotenv */ \"dotenv\");\n/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(dotenv__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! cors */ \"cors\");\n/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var morgan__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! morgan */ \"morgan\");\n/* harmony import */ var morgan__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(morgan__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var cookie_parser__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! cookie-parser */ \"cookie-parser\");\n/* harmony import */ var cookie_parser__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(cookie_parser__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _routes_index__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./routes/index */ \"./build/routes/index.js\");\n/* harmony import */ var _config_connectDB__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./config/connectDB */ \"./build/config/connectDB.js\");\n\n\n(0,dotenv__WEBPACK_IMPORTED_MODULE_1__.config)();\n\n\n\n\n\nvar app = express__WEBPACK_IMPORTED_MODULE_0___default()();\nvar port = process.env.PORT;\nawait (0,_config_connectDB__WEBPACK_IMPORTED_MODULE_6__.connectDB)();\n// const isProduction = process.env.BUILD_CODE === 'production'; // để phân biệt dev và production\n// tạo file log theo ngày tới thư mục log trong thư mục gốc của project\n// const accessLogStream = createStream('access.log', {\n//    interval: '1d', // rotate daily\n//    path: path.join(__dirname, 'log'),\n// });\n// app.use((req, res, next) => {\n//    res.setHeader(\n//       'Access-Control-Allow-Origin',\n//       'https://ban-sach-truc-tuyen.vercel.app'\n//    );\n//    res.setHeader('Access-Control-Allow-Credentials', 'true');\n//    res.setHeader(\n//       'Access-Control-Allow-Methods',\n//       'GET,HEAD,OPTIONS,POST,PUT,DELETE,PATCH'\n//    );\n//    res.setHeader(\n//       'Access-Control-Allow-Headers',\n//       'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'\n//    );\n//    next();\n// });\napp.use(express__WEBPACK_IMPORTED_MODULE_0___default().json());\napp.use(express__WEBPACK_IMPORTED_MODULE_0___default().urlencoded({\n  extended: true\n}));\nvar whiteList = ['http://localhost:4090', 'http://localhost:3000', 'http://localhost:5173', 'https://oauth.casso.vn', 'https://api-ebook.cyclic.app', 'https://ban-sach-truc-tuyen.vercel.app'];\napp.use(cors__WEBPACK_IMPORTED_MODULE_2___default()({\n  // origin: function (origin: any, callback: any) {\n  //    if (whiteList.indexOf(origin) !== -1) {\n  //       callback(null, true);\n  //    } else {\n  //       callback(new Error('Not allowed by CORS'));\n  //    }\n  // },\n  origin: whiteList,\n  credentials: true,\n  allowedHeaders: ['Authorization', 'Content-Type', 'Access-Control-Request-Method', 'X-Requested-With', 'Accept', 'Access-Control-Request-Headers', 'Origin', 'Access-Control-Allow-Headers'],\n  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],\n  exposedHeaders: ['Access-Control-Allow-Origin', 'x-auth-token'],\n  preflightContinue: true\n  // optionSuccessStatus: 200,\n}));\n\napp.use(cookie_parser__WEBPACK_IMPORTED_MODULE_4___default()());\napp.use(morgan__WEBPACK_IMPORTED_MODULE_3___default()('dev'));\n(0,_routes_index__WEBPACK_IMPORTED_MODULE_5__.routes)(app);\napp.listen(port, function () {\n  console.log(\"Server running on port \".concat(port, \": http://localhost:\").concat(port));\n});\n__webpack_async_result__();\n} catch(e) { __webpack_async_result__(e); } }, 1);\n\n//# sourceURL=webpack://apiwebbansach/./build/server.js?");
 
 /***/ }),
 
@@ -351,6 +351,75 @@ module.exports = require("qs");
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/async module */
+/******/ 	(() => {
+/******/ 		var webpackQueues = typeof Symbol === "function" ? Symbol("webpack queues") : "__webpack_queues__";
+/******/ 		var webpackExports = typeof Symbol === "function" ? Symbol("webpack exports") : "__webpack_exports__";
+/******/ 		var webpackError = typeof Symbol === "function" ? Symbol("webpack error") : "__webpack_error__";
+/******/ 		var resolveQueue = (queue) => {
+/******/ 			if(queue && !queue.d) {
+/******/ 				queue.d = 1;
+/******/ 				queue.forEach((fn) => (fn.r--));
+/******/ 				queue.forEach((fn) => (fn.r-- ? fn.r++ : fn()));
+/******/ 			}
+/******/ 		}
+/******/ 		var wrapDeps = (deps) => (deps.map((dep) => {
+/******/ 			if(dep !== null && typeof dep === "object") {
+/******/ 				if(dep[webpackQueues]) return dep;
+/******/ 				if(dep.then) {
+/******/ 					var queue = [];
+/******/ 					queue.d = 0;
+/******/ 					dep.then((r) => {
+/******/ 						obj[webpackExports] = r;
+/******/ 						resolveQueue(queue);
+/******/ 					}, (e) => {
+/******/ 						obj[webpackError] = e;
+/******/ 						resolveQueue(queue);
+/******/ 					});
+/******/ 					var obj = {};
+/******/ 					obj[webpackQueues] = (fn) => (fn(queue));
+/******/ 					return obj;
+/******/ 				}
+/******/ 			}
+/******/ 			var ret = {};
+/******/ 			ret[webpackQueues] = x => {};
+/******/ 			ret[webpackExports] = dep;
+/******/ 			return ret;
+/******/ 		}));
+/******/ 		__webpack_require__.a = (module, body, hasAwait) => {
+/******/ 			var queue;
+/******/ 			hasAwait && ((queue = []).d = 1);
+/******/ 			var depQueues = new Set();
+/******/ 			var exports = module.exports;
+/******/ 			var currentDeps;
+/******/ 			var outerResolve;
+/******/ 			var reject;
+/******/ 			var promise = new Promise((resolve, rej) => {
+/******/ 				reject = rej;
+/******/ 				outerResolve = resolve;
+/******/ 			});
+/******/ 			promise[webpackExports] = exports;
+/******/ 			promise[webpackQueues] = (fn) => (queue && fn(queue), depQueues.forEach(fn), promise["catch"](x => {}));
+/******/ 			module.exports = promise;
+/******/ 			body((deps) => {
+/******/ 				currentDeps = wrapDeps(deps);
+/******/ 				var fn;
+/******/ 				var getResult = () => (currentDeps.map((d) => {
+/******/ 					if(d[webpackError]) throw d[webpackError];
+/******/ 					return d[webpackExports];
+/******/ 				}))
+/******/ 				var promise = new Promise((resolve) => {
+/******/ 					fn = () => (resolve(getResult));
+/******/ 					fn.r = 0;
+/******/ 					var fnQueue = (q) => (q !== queue && !depQueues.has(q) && (depQueues.add(q), q && !q.d && (fn.r++, q.push(fn))));
+/******/ 					currentDeps.map((dep) => (dep[webpackQueues](fnQueue)));
+/******/ 				});
+/******/ 				return fn.r ? promise : getResult();
+/******/ 			}, (err) => ((err ? reject(promise[webpackError] = err) : outerResolve(exports)), resolveQueue(queue)));
+/******/ 			queue && (queue.d = 0);
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
