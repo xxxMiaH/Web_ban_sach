@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { parse, stringify } = require('qs');
-require('dotenv').config();
+import { config } from 'dotenv';
+config();
 
 const api_key = process.env.API_KEY_CASSO;
 

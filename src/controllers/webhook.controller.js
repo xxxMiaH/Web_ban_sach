@@ -1,6 +1,6 @@
-let webhookUtil = require('../utils/webhook.util');
-let syncUtil = require('../utils/sync.util');
-let userUtil = require('../utils/get_user_info.util');
+import webhookUtil from '../utils/webhook.util';
+import syncUtil from '../utils/sync.util';
+import userUtil from '../utils/get_user_info.util';
 import OrderModel from '../models/Order.model';
 import { config } from 'dotenv';
 config();
@@ -83,7 +83,7 @@ class WebhookController {
             if (!orderData) continue;
             const isUpdated = await OrderModel.updateOne(
                { _id: orderData._id },
-               { status: 'shipping' }
+               { status: 'paid' }
             );
             if (isUpdated) {
                return res.status(200).json({
@@ -188,13 +188,16 @@ class WebhookController {
                message: 'Not found order',
             });
          }
-         if (order.status === 'shipping') {
+         await webhookUtil.deleteWebhookByUrl(
+            'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer'
+         );
+         if (order.status === 'paid') {
             return res.status(200).json({
                code: 200,
                message: 'Đã thanh toán thành công!',
                data: true,
             });
-         } else {
+         } else if (order.status === 'pending') {
             return res.status(200).json({
                code: 200,
                message: 'Đang chờ xác thực thanh toán!',

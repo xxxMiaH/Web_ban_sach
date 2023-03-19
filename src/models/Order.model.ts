@@ -46,12 +46,12 @@ const OrderSchema = new Schema<IOrder>(
       },
       captcha: {
          type: String,
-         default: null,
+         default: '',
       },
       // trạng thái đơn hàng
       status: {
          type: String,
-         enum: ['pending', 'shipping', 'completed', 'canceled'],
+         enum: ['pending', 'paid', 'shipping', 'completed', 'canceled'],
          default: 'pending',
       },
       // ngày giao hàng

@@ -50,7 +50,7 @@ class OrderService {
             orders: data || [],
             expectedRevenue: orderPending,
             actualRevenue: orderCompleted,
-            reducedRevenue: orderCompleted - (orderCompleted * 30) / 100,
+            reducedRevenue: (orderCompleted * 30) / 100,
          };
       } catch (err: any) {
          throw new Error(err);
