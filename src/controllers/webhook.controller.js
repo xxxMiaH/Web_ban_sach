@@ -1,8 +1,9 @@
 let webhookUtil = require('../utils/webhook.util');
-let getTokenUtil = require('../utils/get_token.util');
 let syncUtil = require('../utils/sync.util');
 let userUtil = require('../utils/get_user_info.util');
 import OrderModel from '../models/Order.model';
+import { config } from 'dotenv';
+config();
 //DEMO Xây dựng webhook của bạn
 //Router này sẽ là webhook nhận thông tin giao dịch từ casso gọi qua được bảo mật bằng secure_token trong header
 // ============
@@ -14,10 +15,9 @@ const case_insensitive = false;
 //Hạn của đơn hàng là 3 ngày. Quá 3 ngày thì không xử lý
 const expiration_date = 3;
 // API KEY lấy từ casso
-const api_key =
-   'AK_CS.2383a6e0c47d11ed8f2f9f7a85b1d621.24scfeiDEZSENqIrBs2sGlmsSAl8tbLHZuZ2tnj1svxX7iSCBROeNlqCjjzNxVbLmSK4cmxg';
+const api_key = process.env.API_KEY_CASSO;
 // secure_token đăng kí khi tạo webhook
-const secure_token = 'R5G4cbnN7uSAwfTd';
+const secure_token = process.env.SECURE_TOKEN;
 
 class WebhookController {
    handlerBankTransfer = async (req, res) => {
@@ -79,6 +79,10 @@ class WebhookController {
                }
             });
             if (!order) continue;
+            await OrderModel.updateOne(
+               { _id: order._id },
+               { status: 'shipping' }
+            );
          }
          return res.status(200).json({
             code: 200,
@@ -103,7 +107,7 @@ class WebhookController {
          if (!req.body.accountNumber) {
             return res.status(404).json({
                code: 404,
-               message: 'Not foung Account number',
+               message: 'Not found Account number',
             });
          }
          // Tiến hành gọi hàm đồng bộ qua casso
@@ -150,7 +154,7 @@ class WebhookController {
             code: 200,
             message: 'success',
             data: {
-               webhook: newWebhook,
+               webhook: newWebhook.data,
                userInfo: userInfo.data,
             },
          });
@@ -160,6 +164,45 @@ class WebhookController {
             code: 500,
             message: 'Internal server error',
             data: error,
+         });
+      }
+   };
+
+   checkTransfer = async (req, res) => {
+      try {
+         const { captcha } = req.body;
+         if (!captcha) {
+            return res.status(404).json({
+               code: 404,
+               message: 'Not found captcha',
+            });
+         }
+         const order = await OrderModel.findOne(captcha);
+         if (!order) {
+            return res.status(404).json({
+               code: 404,
+               message: 'Not found order',
+            });
+         }
+         if (order.status === 'shipping') {
+            return res.status(200).json({
+               code: 200,
+               message: 'Đã thanh toán thành công!',
+               data: true,
+            });
+         } else {
+            return res.status(200).json({
+               code: 200,
+               message: 'Đang chờ xác thực thanh toán!',
+               data: false,
+            });
+         }
+      } catch (err) {
+         console.log(err);
+         return res.status(500).json({
+            code: 500,
+            message: 'Internal server error',
+            data: null,
          });
       }
    };
