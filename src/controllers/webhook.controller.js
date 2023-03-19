@@ -41,13 +41,14 @@ class WebhookController {
          // });
          // B2: Thực hiện lấy thông tin giao dịch
          for (let item of req.body.data) {
-            console.log(item);
+            console.log(item.description + ' ' + item.amount);
             // Lấy thông orderId từ nội dung giao dịch
             let orderId = webhookUtil.parseOrderId(
                case_insensitive,
                transaction_prefix,
                item.description
             );
+            console.log(orderId);
             // Nếu không có orderId phù hợp từ nội dung ra next giao dịch tiếp theo
             if (!orderId) continue;
             // Kiểm tra giao dịch còn hạn hay không? Nếu không qua giao dịch tiếp theo
@@ -72,7 +73,7 @@ class WebhookController {
             const orders = await OrderModel.find({});
             const orderData = orders.find((order) => {
                if (
-                  order.captcha.substring(5) === orderId &&
+                  order.captcha.substring(5).includes(orderId) &&
                   order.status === 'pending' &&
                   order.total_price === item.amount
                ) {
