@@ -73,7 +73,7 @@ class WebhookController {
             const orders = await OrderModel.find({});
             const orderData = orders.find((order) => {
                if (
-                  order.captcha.substring(5).includes(orderId) &&
+                  order.captcha.substring(5) === orderId &&
                   order.status === 'pending' &&
                   order.total_price === item.amount
                ) {
