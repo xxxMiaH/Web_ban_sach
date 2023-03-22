@@ -146,8 +146,6 @@ class WebhookController {
                'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer',
             secure_token: secure_token,
             income_only: true,
-            money: req.body.total_price,
-            captcha: req.body.captcha,
          };
          let newWebhook = await webhookUtil.create(data);
          // Lấy thông tin về userInfo
@@ -179,7 +177,7 @@ class WebhookController {
                message: 'Not found captcha',
             });
          }
-         const order = await OrderModel.findOne(captcha);
+         const order = await OrderModel.findOne({ captcha });
          if (!order) {
             return res.status(404).json({
                code: 404,
@@ -197,8 +195,8 @@ class WebhookController {
                data: true,
             });
          } else if (order.status === 'pending') {
-            return res.status(200).json({
-               code: 200,
+            return res.status(204).json({
+               code: 204,
                message: 'Đang chờ xác thực thanh toán!',
                data: false,
             });
