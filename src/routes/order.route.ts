@@ -3,6 +3,8 @@ const router = express.Router();
 
 import OrderController from '../controllers/order.controller';
 
+
+router.get(('/statistics'),OrderController.getProductOrder)
 router
    .route('/')
    .get(OrderController.getAllOrder)

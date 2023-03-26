@@ -62,6 +62,15 @@ export default new (class OrderController {
          return res.status(500).json({ message: err.message });
       }
    };
+   getProductOrder = async (req, res) => {
+      try {
+         const result = await OrderService.getProductOrder();
+         return res.status(200).json(result);
+      } catch (err) {
+         console.log({ errOrder: err.message });
+         return res.status(500).json({ message: err.message });
+      }
+   };
 
 
 })();

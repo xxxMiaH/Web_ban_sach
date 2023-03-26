@@ -1,3 +1,4 @@
+import { productRouter } from './../routes/product.route';
 import { config } from 'dotenv';
 config();
 import { ObjectId, Schema } from 'mongoose';
@@ -165,6 +166,56 @@ class OrderService {
          throw new Error(err);
       }
    };
+
+   getProductOrder = async(): Promise<object> =>{
+      try {
+         const order = await OrderModel.find();
+         // let results
+         if (!order) {
+            throw new Error('Something went wrong! Please try again later!');
+         }
+         let productOrder: Array<Object> = order.map(item =>{
+            return {products: item.products}
+         })
+
+         const output: Array<Object>  = productOrder.reduce((acc: any, cur: any) => {
+            return acc.concat(cur.products);
+          }, []);
+
+        
+          const result = [];
+          const dict = [{}];
+          
+          
+          for (const item of output) {
+            const { product, quantity } = item;
+            if (dict[product]) {
+              dict[product] += quantity;
+            } else {
+              dict[product] = quantity;
+            }
+          }
+          
+          for (const product in dict) {
+            result.push({
+              product,
+              quantity: dict[product]
+            });
+          }
+
+          const result2 = result.shift();
+
+         return{
+            result,
+         }
+      } catch (err: any) {
+         console.log(err);
+         throw new Error(err);
+      }
+   }
 }
+
+
+
 
 export default new OrderService();
