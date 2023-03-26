@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import webhookUtil from '../utils/webhook.util';
 import syncUtil from '../utils/sync.util';
 import userUtil from '../utils/get_user_info.util';
@@ -20,7 +21,7 @@ const api_key = process.env.API_KEY_CASSO;
 const secure_token = process.env.SECURE_TOKEN;
 
 class WebhookController {
-   handlerBankTransfer = async (req, res) => {
+   handlerBankTransfer = async (req: Request, res: Response) => {
       try {
          // B1: Ở đây mình sẽ thực hiện check secure-token. Bình thường phần này sẽ nằm trong middlewares
          // Mình sẽ code trực tiếp tại đây cho dễ hình dung luồng. Nếu không có secure-token hoặc sai đều trả về lỗi
@@ -40,6 +41,7 @@ class WebhookController {
          //    data: req.body.data,
          // });
          // B2: Thực hiện lấy thông tin giao dịch
+         let orderData: any;
          for (let item of req.body.data) {
             console.log(item.description + ' ' + item.amount);
             // Lấy thông orderId từ nội dung giao dịch
@@ -71,7 +73,7 @@ class WebhookController {
             // Nếu có thì xử lý giao dịch
 
             const orders = await OrderModel.find({});
-            const orderData = orders.find((order) => {
+            orderData = orders.find((order) => {
                if (
                   order.captcha.substring(5) === orderId &&
                   order.status === 'pending' &&
@@ -101,7 +103,7 @@ class WebhookController {
       }
    };
 
-   usersPaid = async (req, res) => {
+   usersPaid = async (req: Request, res: Response) => {
       try {
          // Để thực hiện tính năng đồng bộ cần có Số tài khoản, Bạn có thể validate bằng schema ở middlewares
          // Hoặc có thể kiểm tra trong đây luôn
@@ -129,21 +131,20 @@ class WebhookController {
       }
    };
 
-   registerWebhook = async (req, res) => {
+   registerWebhook = async (req: Request, res: Response) => {
       try {
          // Lấy token bằng hàm lấy token. Token có hạn 6h nên bạn có thể lưu lại khi nào hết thì gọi hàm lấy token lại
          // api_key có thể thay thế nhận từ nhiều user
          // let resToken = await getTokenUtil.getTokenByAPIKey(api_key);
          // console.log(resToken);
          // let accessToken = resToken;
-         //Delete Toàn bộ webhook đã đăng kí trước đó với https://api-ebook.cyclic.app/webhook/handler-bank-transfer
+         //Delete Toàn bộ webhook đã đăng kí trước đó với ${process.env.DOMAIN}/webhook/handler-bank-transfer
          await webhookUtil.deleteWebhookByUrl(
-            'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer'
+            `${process.env.DOMAIN}/api/webhook/handler-bank-transfer`
          );
          //Tiến hành tạo webhook
          let data = {
-            webhook:
-               'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer',
+            webhook: `${process.env.DOMAIN}/api/webhook/handler-bank-transfer`,
             secure_token: secure_token,
             income_only: true,
          };
@@ -168,7 +169,7 @@ class WebhookController {
       }
    };
 
-   checkTransfer = async (req, res) => {
+   checkTransfer = async (req: Request, res: Response) => {
       try {
          const { captcha } = req.body;
          if (!captcha) {
@@ -187,7 +188,7 @@ class WebhookController {
 
          if (order.status === 'paid') {
             await webhookUtil.deleteWebhookByUrl(
-               'https://api-ebook.cyclic.app/api/webhook/handler-bank-transfer'
+               `${process.env.DOMAIN}/api/webhook/handler-bank-transfer`
             );
             return res.status(200).json({
                code: 200,

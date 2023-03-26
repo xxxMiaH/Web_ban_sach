@@ -10,30 +10,12 @@ import ProductModel from '../models/Product.model';
 
 import webhookUtil from '../utils/webhook.util';
 
-
 class OrderService {
    getAllOrder = async (): Promise<object> => {
       try {
          const data = await OrderModel.find({});
          if (!data) throw new Error('Order not found');
 
-         // let orderId = webhookUtil.parseOrderId(
-         //    false,
-         //    'EBOOK',
-         //    'ND:EBOOKIiFFSk; tai iPay'
-         // );
-
-         // const orderData = data.find((order) => {
-         //    if (
-         //       order.captcha.substring(5) === orderId &&
-         //       order.status === 'pending' &&
-         //       order.total_price === 1000
-         //    ) {
-         //       return order;
-         //    }
-         // });
-
-         // console.log(orderData);
          let orderCompleted: number = data.reduce((acc: any, cur: any) => {
             if (cur.status === 'completed') {
                acc += cur.total_price;
@@ -75,19 +57,15 @@ class OrderService {
             return x;
          });
 
-         // const results = await OrderModel.create({
-         //    ...data,
-         //    products: cartProduct,
-         //    total_price: oldPrice,
-         // });
-
          const products = [];
-         for(let i = 0 ; i < cartProduct.length ; i ++){
+         for (let i = 0; i < cartProduct.length; i++) {
             const product = await ProductModel.findById(cartProduct[i].product);
             const newStock = product.stock - cartProduct[i].quantity;
 
-            await ProductModel.findByIdAndUpdate(cartProduct[i].product, {stock: newStock});
-         } 
+            await ProductModel.findByIdAndUpdate(cartProduct[i].product, {
+               stock: newStock,
+            });
+         }
 
          const results = await OrderModel.create({
             customer: data,
@@ -167,55 +145,53 @@ class OrderService {
       }
    };
 
-   getProductOrder = async(): Promise<object> =>{
+   getProductOrder = async (): Promise<object> => {
       try {
          const order = await OrderModel.find();
          // let results
          if (!order) {
             throw new Error('Something went wrong! Please try again later!');
          }
-         let productOrder: Array<Object> = order.map(item =>{
-            return {products: item.products}
-         })
+         let productOrder: Array<Object> = order.map((item) => {
+            return { products: item.products };
+         });
 
-         const output: Array<Object>  = productOrder.reduce((acc: any, cur: any) => {
-            return acc.concat(cur.products);
-          }, []);
+         const output: Array<Object> = productOrder.reduce(
+            (acc: any, cur: any) => {
+               return acc.concat(cur.products);
+            },
+            []
+         );
 
-        
-          const result = [];
-          const dict = [{}];
-          
-          
-          for (const item of output) {
-            const { product, quantity } = item;
+         const result = [];
+         const dict = [{}];
+
+         for (const item of output) {
+            const { product, quantity }: any = item;
             if (dict[product]) {
-              dict[product] += quantity;
+               dict[product] += quantity;
             } else {
-              dict[product] = quantity;
+               dict[product] = quantity;
             }
-          }
-          
-          for (const product in dict) {
-            result.push({
-              product,
-              quantity: dict[product]
-            });
-          }
-
-          const result2 = result.shift();
-
-         return{
-            result,
          }
+
+         for (const product in dict) {
+            result.push({
+               product,
+               quantity: dict[product],
+            });
+         }
+
+         const result2 = result.shift();
+
+         return {
+            result,
+         };
       } catch (err: any) {
          console.log(err);
          throw new Error(err);
       }
-   }
+   };
 }
-
-
-
 
 export default new OrderService();
