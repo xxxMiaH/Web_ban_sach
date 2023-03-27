@@ -48,7 +48,7 @@ const bootServer = async () => {
       'http://localhost:3000',
       'http://localhost:5173',
       'https://oauth.casso.vn',
-      'https://api-ebook.cyclic.app',
+      `${process.env.DOMAIN}`,
       'https://ban-sach-truc-tuyen.vercel.app',
    ];
    app.use(

@@ -1,11 +1,11 @@
-// import { Request, Response } from "express";
+import { Request, Response } from 'express';
 import { config } from 'dotenv';
 config();
 
 import OrderService from '../services/order.service';
 
 export default new (class OrderController {
-   getAllOrder = async (req, res) => {
+   getAllOrder = async (req: Request, res: Response) => {
       try {
          const result = await OrderService.getAllOrder();
 
@@ -15,7 +15,7 @@ export default new (class OrderController {
       }
    };
 
-   createOrder = async (req, res) => {
+   createOrder = async (req: Request, res: Response) => {
       try {
          const result = await OrderService.createOrder(req.cookies, req.body);
 
@@ -32,37 +32,38 @@ export default new (class OrderController {
       }
    };
 
-   getAOrder = async (req, res) => {
+   getAOrder = async (req: Request, res: Response) => {
       try {
-         const result = await OrderService.getAOrder(req.params.id,req.body);
+         const result = await OrderService.getAOrder(req.params.id, req.body);
          return res.status(200).json(result);
       } catch (err) {
          console.log({ errOrder: err.message });
          return res.status(500).json({ message: err.message });
       }
    };
-   updateAOrder = async (req, res) => {
+   updateAOrder = async (req: Request, res: Response) => {
       try {
          const result = await OrderService.updateAOrder(
             req.params.id,
-            req.body);
+            req.body
+         );
          return res.status(200).json(result);
       } catch (err) {
          console.log({ errOrder: err.message });
          return res.status(500).json({ message: err.message });
       }
    };
-   deleteAOrder = async (req, res) => {
+   deleteAOrder = async (req: Request, res: Response) => {
       try {
-         const result = await OrderService.deleteAOrder(
-            req.params.id);
+         const result = await OrderService.deleteAOrder(req.params.id);
          return res.status(200).json(result);
       } catch (err) {
          console.log({ errOrder: err.message });
          return res.status(500).json({ message: err.message });
       }
    };
-   getProductOrder = async (req, res) => {
+
+   getProductOrder = async (req: Request, res: Response) => {
       try {
          const result = await OrderService.getProductOrder();
          return res.status(200).json(result);
@@ -71,6 +72,4 @@ export default new (class OrderController {
          return res.status(500).json({ message: err.message });
       }
    };
-
-
 })();
