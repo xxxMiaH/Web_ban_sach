@@ -3,11 +3,11 @@ const router = express.Router();
 
 import OrderController from '../controllers/order.controller';
 
-router.get('/statistics', OrderController.getProductOrder);
+router.route('/statistics').get(OrderController.getProductOrder);
 router
    .route('/:id')
    .get(OrderController.getAOrder)
-   .patch(OrderController.updateAOrder)
+   .put(OrderController.updateAOrder)
    .delete(OrderController.deleteAOrder);
 router
    .route('/')
