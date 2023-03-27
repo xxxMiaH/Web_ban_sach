@@ -196,8 +196,10 @@ class OrderService {
             }
           }
           
+
+
           for (const product in dict) {
-            result.push({
+            result.push({ 
               product,
               quantity: dict[product]
             });
