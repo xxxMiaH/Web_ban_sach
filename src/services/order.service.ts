@@ -147,7 +147,7 @@ class OrderService {
 
    getProductOrder = async (): Promise<object> => {
       try {
-         const order = await OrderModel.find();
+         const order = await OrderModel.find().populate('products.product');
          // let results
          if (!order) {
             throw new Error('Something went wrong! Please try again later!');
