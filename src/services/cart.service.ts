@@ -45,11 +45,21 @@ class CartService {
             //* Có sản phẩm trong giỏ
             let result: any;
             if (product) {
+               const productGetStock = await ProductModel.findById(id);
+               if (!productGetStock) throw new Error('Product not found');
+               const stock = productGetStock.stock;
+               // check xem số lượng sản phẩm trong giỏ hàng có vượt quá số lượng trong kho không
+               // nếu vượt quá thì báo lỗi
+
                // lay quantity cua product do ra roi tang len 1
                const quantity = product.products.find(
                   (p) => p.product == id
                )?.quantity;
                const newQuantity = quantity + quantityBody;
+
+               if (newQuantity > stock) {
+                  throw new Error('Out of stock');
+               }
 
                result = await CartModel.findByIdAndUpdate(
                   cartId,
@@ -80,7 +90,6 @@ class CartService {
             return { status: 'Successfully updated', result };
          }
          //* Chưa có giỏ hàng
-         ;
          const result = await CartModel.create({
             products: [
                {
