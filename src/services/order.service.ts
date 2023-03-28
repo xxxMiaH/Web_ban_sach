@@ -163,10 +163,7 @@ class OrderService {
 
    getProductOrder = async (): Promise<object> => {
       try {
-         const order = await OrderModel.find()
-
-
-         //.populate('products.product');
+         const order = await OrderModel.find();
          // let results
          if (!order) {
             throw new Error('Something went wrong! Please try again later!');
@@ -197,19 +194,13 @@ class OrderService {
           for (const product in dict) {
             if(product != "0"){
             const itemProduct = await ProductModel.findById(product);
+            console.log(itemProduct);
             result.push({
                product: itemProduct,
                quantity: dict[product]
              });
             } 
          }
-
-         // const result2 = result.shift();
-
-         // const finalResult = result.map((item) =>{
-         //    const product = ProductModel.findById(item.product);
-         //    return {product: product, quantity: item.quantity}
-         // })
 
          return {
             result,
