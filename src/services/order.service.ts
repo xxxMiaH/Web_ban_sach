@@ -8,8 +8,6 @@ import CartModel from '../models/Cart.model';
 import OrderModel from '../models/Order.model';
 import ProductModel from '../models/Product.model';
 
-import webhookUtil from '../utils/webhook.util';
-
 class OrderService {
    getAllOrder = async (): Promise<object> => {
       try {
@@ -44,7 +42,7 @@ class OrderService {
 
    createOrder = async (
       cookies: Request['cookies'],
-      data: any,
+      data: any
    ): Promise<object> => {
       try {
          const cartId = cookies.cart;
@@ -56,32 +54,37 @@ class OrderService {
          // const cartProduct = cart.products.map((x) => {
          //    return x;
          // });
-         interface productOder{
+         interface IProductOrder {
             product: ObjectId;
             quantity: number;
          }
-         const cartProduct: Array<productOder>= [];
-         const productsPrice: Array<Number>= [];
-         for(let i = 0; i < cart.products.length; i++){
-            const product = await ProductModel.findById(cart.products[i].product);
-            if( ((product.stock - cart.products[i].quantity ) >= 0)  ){
-               cartProduct.push({product: cart.products[i].product, quantity: cart.products[i].quantity});
-               productsPrice.push(product.price* cart.products[i].quantity);
+         const cartProduct: Array<IProductOrder> = [];
+         const productsPrice: Array<number> = [];
+         for (let i = 0; i < cart.products.length; i++) {
+            const product = await ProductModel.findById(
+               cart.products[i].product
+            );
+            if (product.stock - cart.products[i].quantity >= 0) {
+               cartProduct.push({
+                  product: cart.products[i].product,
+                  quantity: cart.products[i].quantity,
+               });
+               productsPrice.push(product.price * cart.products[i].quantity);
             }
          }
          for (let i = 0; i < cartProduct.length; i++) {
             const product = await ProductModel.findById(cartProduct[i].product);
-            const stockProduct: Number = product.stock - cartProduct[i].quantity;
-            const newStock: Number = (stockProduct < 0) ? 0 : stockProduct
+            const stockProduct: number =
+               product.stock - cartProduct[i].quantity;
+            const newStock: number = stockProduct < 0 ? 0 : stockProduct;
             await ProductModel.findByIdAndUpdate(cartProduct[i].product, {
                stock: newStock,
             });
          }
 
-         const oldPrice = productsPrice.reduce((total: any, price: any) =>{
+         const oldPrice = productsPrice.reduce((total: any, price: any) => {
             return total + price;
-         },0);
-
+         }, 0);
 
          const results = await OrderModel.create({
             customer: data,
@@ -189,17 +192,17 @@ class OrderService {
             } else {
                dict[product] = quantity;
             }
-          }
-          
-          for (const product in dict) {
-            if(product != "0"){
-            const itemProduct = await ProductModel.findById(product);
-            console.log(itemProduct);
-            result.push({
-               product: itemProduct,
-               quantity: dict[product]
-             });
-            } 
+         }
+
+         for (const product in dict) {
+            if (product != '0') {
+               const itemProduct = await ProductModel.findById(product);
+               console.log(itemProduct);
+               result.push({
+                  product: itemProduct,
+                  quantity: dict[product],
+               });
+            }
          }
 
          return {

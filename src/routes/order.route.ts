@@ -7,7 +7,7 @@ router.get('/statistics', OrderController.getProductOrder);
 router
    .route('/:id')
    .get(OrderController.getAOrder)
-   .patch(OrderController.updateAOrder)
+   .put(OrderController.updateAOrder)
    .delete(OrderController.deleteAOrder)
 router
    .route('/')
