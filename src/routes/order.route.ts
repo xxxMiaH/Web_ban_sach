@@ -8,7 +8,7 @@ router
    .route('/:id')
    .get(OrderController.getAOrder)
    .patch(OrderController.updateAOrder)
-   .delete(OrderController.deleteAOrder);
+   .delete(OrderController.deleteAOrder)
 router
    .route('/')
    .get(OrderController.getAllOrder)

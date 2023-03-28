@@ -44,28 +44,44 @@ class OrderService {
 
    createOrder = async (
       cookies: Request['cookies'],
-      data: any
+      data: any,
    ): Promise<object> => {
       try {
          const cartId = cookies.cart;
          const cart = await CartModel.findById(cartId);
          if (!cart) throw new Error('Cart not found');
-         const oldPrice = cart.total_price;
+         // const oldPrice = cart.total_price;
          // let result: any;
 
-         const cartProduct = cart.products.map((x) => {
-            return x;
-         });
-
-         const products = [];
+         // const cartProduct = cart.products.map((x) => {
+         //    return x;
+         // });
+         interface productOder{
+            product: ObjectId;
+            quantity: number;
+         }
+         const cartProduct: Array<productOder>= [];
+         const productsPrice: Array<Number>= [];
+         for(let i = 0; i < cart.products.length; i++){
+            const product = await ProductModel.findById(cart.products[i].product);
+            if( ((product.stock - cart.products[i].quantity ) >= 0)  ){
+               cartProduct.push({product: cart.products[i].product, quantity: cart.products[i].quantity});
+               productsPrice.push(product.price* cart.products[i].quantity);
+            }
+         }
          for (let i = 0; i < cartProduct.length; i++) {
             const product = await ProductModel.findById(cartProduct[i].product);
-            const newStock = product.stock - cartProduct[i].quantity;
-
+            const stockProduct: Number = product.stock - cartProduct[i].quantity;
+            const newStock: Number = (stockProduct < 0) ? 0 : stockProduct
             await ProductModel.findByIdAndUpdate(cartProduct[i].product, {
                stock: newStock,
             });
          }
+
+         const oldPrice = productsPrice.reduce((total: any, price: any) =>{
+            return total + price;
+         },0);
+
 
          const results = await OrderModel.create({
             customer: data,
@@ -181,7 +197,6 @@ class OrderService {
           for (const product in dict) {
             if(product != "0"){
             const itemProduct = await ProductModel.findById(product);
-            console.log(itemProduct);
             result.push({
                product: itemProduct,
                quantity: dict[product]

@@ -22,8 +22,8 @@ const OrderSchema = new Schema<IOrder>(
             required: true,
          },
          note: {
-            text: String,
-            default: '',
+            type: String,
+            default: "",
          },
       },
       // Sản phẩm, số lượng sản phẩm
