@@ -14,7 +14,7 @@ const status = {
 
 const DoanhThuPage = () => {
 
-  document.title = "Quản lý doanh thu - EBook";
+  document.title = "Quản lý doanh thu - ABook";
 
   const [doanhThu, setDoanhThu] = useState([]);
   const [productSold, setProductSold] = useState([]);
