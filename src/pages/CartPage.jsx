@@ -7,7 +7,7 @@ import { convertCurr } from "../../utils/convertCurr";
 import { toast } from "react-toastify";
 
 const CartPage = () => {
-  document.title = "Giỏ hàng - EBook";
+  document.title = "Giỏ hàng - ABook";
 
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
