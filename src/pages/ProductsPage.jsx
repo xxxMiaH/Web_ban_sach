@@ -5,7 +5,7 @@ import Loading from "../components/Loading/Loading";
 
 const Products = () => {
 
-  document.title = "Tất cả sản phẩm -EBook";
+  document.title = "Tất cả sản phẩm - ABook";
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
