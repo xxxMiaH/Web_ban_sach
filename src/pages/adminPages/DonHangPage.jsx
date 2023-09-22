@@ -13,7 +13,7 @@ const status = {
 };
 
 const DonHangPage = () => {
-  document.title = "Quản lý đơn hàng - EBook";
+  document.title = "Quản lý đơn hàng - ABook";
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
