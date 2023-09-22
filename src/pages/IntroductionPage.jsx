@@ -2,10 +2,10 @@ import React, { Fragment } from "react";
 
 const members = [
   {
-    name: "Nguyễn Hồng Đức",
-    avatar: "https://avatars.githubusercontent.com/u/73995275?v=4",
-    mssv: "DTC20H4801030067",
-    email: "contact.hongduc@gmail.com",
+    name: "Nguyễn Minh Anh",
+    avatar: "https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/352517928_1345875352662069_4601573031506414063_n.jpg?stp=cp6_dst-jpg&_nc_cat=111&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=lh6LhVshO7gAX_e3yz1&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfD56Q4ngG9C5Gjft25xwcxakIOCmwjenZAmk8Wxo8P9Pg&oe=6511DED2",
+    mssv: "2520230049",
+    email: "xxx.mah00.1@gmail.com",
   },
   {
     name: "Trần Tiến Đạt",
@@ -38,7 +38,7 @@ const members = [
 
 const IntroductionPage = () => {
 
-  document.title = "Giới thiệu - EBook";
+  document.title = "Giới thiệu - ABook";
 
   return (
     <Fragment>
