@@ -6,7 +6,7 @@ import { debounce } from "lodash";
 
 const SearchPage = () => {
 
-  document.title = "Tìm kiếm - EBook";
+  document.title = "Tìm kiếm - ABook";
 
   const [search, setSearch] = useState("");
   const [products, setProducts] = useState([]);
