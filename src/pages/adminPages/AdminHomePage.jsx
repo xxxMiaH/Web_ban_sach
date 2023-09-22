@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 const AdminHomePage = () => {
-  document.title = "Admin - EBook";
+  document.title = "Admin - ABook";
 
   return (
     <Fragment>
