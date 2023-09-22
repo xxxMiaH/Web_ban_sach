@@ -13,7 +13,7 @@ const SocialList = [
   },
   {
     name: "Github",
-    path: "https://github.com/hongduccodedao/ban_sach_truc_tuyen",
+    path: "https://github.com/xxxMiaH/Web_ban_sach.git",
     icon: <FaGithub />,
   },
 ];
