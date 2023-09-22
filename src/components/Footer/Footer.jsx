@@ -21,15 +21,15 @@ const SocialList = [
 const ContactList = [
   {
     title: "Điện thoại",
-    contact: "0123456789",
+    contact: "0582182628",
   },
   {
     title: "Email",
-    contact: "hongducyb123@gmail.com",
+    contact: "xxx.mah00.1@gmail.com",
   },
   {
     title: "Địa chỉ",
-    contact: "Xã Quyết Thắng, Thành phố Thái Nguyên, Tỉnh Thái Nguyên",
+    contact: "Minh Khai, Thanh Lương, Hai Bà Trưng, Hà Nội",
   },
 ];
 
