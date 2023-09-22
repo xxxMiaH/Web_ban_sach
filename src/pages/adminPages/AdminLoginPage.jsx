@@ -15,7 +15,7 @@ const schema = yup.object({
 
 const AdminLoginPage = () => {
 
-  document.title = "Đăng nhập - EBook";
+  document.title = "Đăng nhập - ABook";
 
   const navigate = useNavigate();
 
