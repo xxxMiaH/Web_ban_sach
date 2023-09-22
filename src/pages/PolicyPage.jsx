@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 const PolicyPage = () => {
 
-  document.title = "Pháp lý & Câu hỏi - EBook";
+  document.title = "Pháp lý & Câu hỏi - ABook";
 
   return (
     <Fragment>
