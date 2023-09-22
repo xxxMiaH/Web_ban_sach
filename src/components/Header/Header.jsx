@@ -44,7 +44,7 @@ const Header = () => {
     <div className="py-5 shadow-[0_-1px_4px_rgba(0,_0,_0,_0.15)] bg-whiteSoft">
       <div className="container flex items-center justify-between">
         <Link to="/" className="font-bold text-3xl text-text1">
-          Ebook.co
+          ABook
         </Link>
         <div className="">
           <ul className="flex items-center gap-x-10">
