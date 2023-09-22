@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 const PageNotFound = () => {
 
-  document.title = "404 - EBook";
+  document.title = "404 - ABook";
 
   return (
     <Fragment>
