@@ -29,7 +29,7 @@ const ProductPage = () => {
   }, [productID]);
 
   useEffect(() => {
-    document.title = `${product.name} - EBook`;
+    document.title = `${product.name} - ABook`;
   }, [product]);
 
   const handleAdd = () => {
