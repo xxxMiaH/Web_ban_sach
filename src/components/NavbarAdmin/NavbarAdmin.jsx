@@ -37,7 +37,7 @@ const NavbarAdmin = () => {
     <div className="w-full h-full">
       <Link to="/admin" className="block">
         <span className="text-whiteSoft text-3xl font-semibold text-center block py-4">
-          Ebook.co
+          ABook
         </span>
       </Link>
       <div className="">
