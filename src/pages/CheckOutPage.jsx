@@ -22,7 +22,7 @@ const schema = yup.object({
 const CheckOutPage = () => {
   const navigate = useNavigate();
 
-  document.title = "Thanh toán - EBook";
+  document.title = "Thanh toán - ABook";
 
   const {
     handleSubmit,
@@ -245,7 +245,7 @@ const CheckOutPage = () => {
                     <div className="my-3 flex flex-col gap-y-2">
                       <Label htmlFor="payment">QR thanh toán</Label>
                       <img
-                        src="https://media.discordapp.net/attachments/1074219605414903948/1086550806486073354/IMG_1225.jpg?width=671&height=671"
+                        src="https://scontent.fsgn2-9.fna.fbcdn.net/v/t1.15752-9/382310212_846382416802041_6341729921495284389_n.png?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=AFMypWJlr1UAX-keuhI&_nc_ht=scontent.fsgn2-9.fna&oh=03_AdTbvVOuuBjS0nGcwt9sHJhXZjUWiP50LCvvrkWpR5G5uQ&oe=6534C307"
                         alt="qr_code"
                         className="w-[300px]"
                       />
@@ -253,12 +253,12 @@ const CheckOutPage = () => {
                     <div className="my-3 flex flex-col gap-y-2">
                       <Label htmlFor="payment">Mã chuyển khoản</Label>
                       <p className="">
-                        Chủ tài khoản: <strong>TRAN TIEN DAT</strong>
+                        Chủ tài khoản: <strong>NGUYEN MINH ANH</strong>
                         <br />
-                        Số tài khoản: <strong>107872417388</strong>
+                        Số tài khoản: <strong>0582182628</strong>
                         <br />
                         Chuyển khoản với nội dung:{" "}
-                        <strong>EBOOK{captcha}</strong>
+                        <strong>ABOOK{captcha}</strong>
                         <br />
                         (Lưu ý: Chuyển khoản đúng nội dung và thanh toán trước
                         khi ấn nút "<strong>Đặt hàng</strong>" để đơn hàng được
