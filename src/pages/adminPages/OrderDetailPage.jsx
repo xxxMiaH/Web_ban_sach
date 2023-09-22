@@ -15,7 +15,7 @@ const status = {
 
 const OrderDetailPage = () => {
 
-  document.title = "Quản lý đơn hàng - EBook";
+  document.title = "Quản lý đơn hàng - ABook";
 
   const { orderId } = useParams();
   const navigate = useNavigate();
