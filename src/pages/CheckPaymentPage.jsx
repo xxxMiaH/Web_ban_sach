@@ -51,13 +51,13 @@ const CheckPaymentPage = () => {
               className="w-[300px] h-[300px]"
             />
             <p className="text-lg">
-              Chủ tài khoản: <strong>TRAN TIEN DAT</strong>
+              Chủ tài khoản: <strong>NGUYEN MINH ANH</strong>
             </p>
             <p className="text-lg">
-              Số tài khoản: <strong>107872417388</strong>
+              Số tài khoản: <strong>0582182628</strong>
             </p>
             <p className="text-lg">
-              Ngân hàng: <strong>VietinBank</strong>
+              Ngân hàng: <strong>TP BANK</strong>
             </p>
             <p className="text-lg">
               Số tiền: <strong>{convertCurr(total)}</strong>
