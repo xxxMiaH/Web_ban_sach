@@ -30,7 +30,7 @@ const categoriesData = ["architecture", "education"];
 
 const EditProduct = () => {
 
-  document.title = "Sửa sản phẩm - EBook";
+  document.title = "Sửa sản phẩm - ABook";
 
   const { productId } = useParams();
   const [product, setProduct] = useState([]);
