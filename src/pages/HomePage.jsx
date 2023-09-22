@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
 
-  document.title = "Trang chủ - EBook";
+  document.title = "Trang chủ - ABook";
 
   return (
     <Fragment>
