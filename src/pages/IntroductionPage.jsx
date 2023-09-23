@@ -3,36 +3,27 @@ import React, { Fragment } from "react";
 const members = [
   {
     name: "Nguyễn Minh Anh",
-    avatar: "https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/352517928_1345875352662069_4601573031506414063_n.jpg?stp=cp6_dst-jpg&_nc_cat=111&ccb=1-7&_nc_sid=a2f6c7&_nc_ohc=lh6LhVshO7gAX_e3yz1&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfD56Q4ngG9C5Gjft25xwcxakIOCmwjenZAmk8Wxo8P9Pg&oe=6511DED2",
+    avatar: "https://z-p3-scontent.fhan8-1.fna.fbcdn.net/v/t1.15752-9/379343939_761660745719035_7748122253978598527_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ae9488&_nc_ohc=crtijibymHMAX9SKPMy&_nc_ht=z-p3-scontent.fhan8-1.fna&oh=03_AdQKGmpBp2M5lHUFWTVsyty8VZeGWISNFoy2YFPQ4_ffvQ&oe=6535E0C3",
     mssv: "2520230049",
     email: "xxx.mah00.1@gmail.com",
   },
   {
-    name: "Trần Tiến Đạt",
-    avatar: "https://avatars.githubusercontent.com/u/96217718?v=4",
-    mssv: "DTC20H4801030067",
-    email: "jsmsj04@gmail.com",
+    name: "Nguyễn Đăng Hoà",
+    avatar: "https://z-p3-scontent.fhan8-1.fna.fbcdn.net/v/t1.15752-9/381254486_1353729198889967_6764637142701603856_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=sr5sWDyV_X8AX8CKg98&_nc_ht=z-p3-scontent.fhan8-1.fna&oh=03_AdQF2Puc686lEcT_N-p58nvwOn9vRx_VRH4cz9uIoZI0-w&oe=6535F682",
+    mssv: "2520220048",
+    email: "khubuisim@gmail.com",
   },
   {
-    name: "Chu Quang Hải",
-    avatar:
-      "https://cdn.discordapp.com/attachments/1074219493863211042/1086469213562089482/received_915314936553735.jpg",
-    mssv: "DTC2054801320064",
-    email: "quanghaik2@gmail.com",
+    name: "Nguyễn Tuấn Anh",
+    avatar:"https://z-p3-scontent.fhan8-1.fna.fbcdn.net/v/t1.15752-9/381297097_619104716794085_8021725525823754283_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=4z9iNlqr_9AAX94gUyF&_nc_ht=z-p3-scontent.fhan8-1.fna&oh=03_AdT7rZFZe4N2yV9M4coRIzDUEtJSOyIQ_3oYHpe1HmclMA&oe=6535EA58",
+    mssv: "2520230146",
+    email: "ta392002@gmail.com",
   },
   {
-    name: "Vi Hoàng Hợp",
-    avatar:
-      "https://cdn.discordapp.com/attachments/1074219605414903948/1084131196805599404/20230214_225912_IMG_5390.jpg",
-    mssv: "DTC2054801030149",
-    email: "Hhopictu@gmail.com",
-  },
-  {
-    name: "Nguyễn Văn Đức",
-    avatar:
-      "https://cdn.discordapp.com/attachments/1074219605414903948/1086468359257858168/received_2371803272978434.jpg",
-    mssv: "DTC20H4801030055",
-    email: "ductn0701@gmail.com",
+    name: "Nguyễn Đức",
+    avatar:"https://z-p3-scontent.fhan8-1.fna.fbcdn.net/v/t1.15752-9/381244402_1054682345539683_8770865088691305126_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=G04PNQt32GsAX93wijf&_nc_ht=z-p3-scontent.fhan8-1.fna&oh=03_AdTxC-gbNqWdsJ6_nMTQ4BoyFiRSRWsftzDv3_zRcTQbmw&oe=6535EC7D",
+    mssv: "2520215169",
+    email: "ducnk43@gmail.com",
   },
 ];
 
