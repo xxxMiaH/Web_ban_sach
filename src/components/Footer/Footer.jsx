@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const SocialList = [
   {
     name: "Facebook",
-    path: "https://www.facebook.com/",
+    path: "https://www.facebook.com/xxxMiaH/",
     icon: <FaFacebook />,
   },
   {
