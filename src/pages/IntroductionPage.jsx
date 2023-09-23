@@ -4,25 +4,25 @@ const members = [
   {
     name: "Nguyễn Minh Anh",
     avatar: "https://z-p3-scontent.fhan8-1.fna.fbcdn.net/v/t1.15752-9/379343939_761660745719035_7748122253978598527_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=ae9488&_nc_ohc=crtijibymHMAX9SKPMy&_nc_ht=z-p3-scontent.fhan8-1.fna&oh=03_AdQKGmpBp2M5lHUFWTVsyty8VZeGWISNFoy2YFPQ4_ffvQ&oe=6535E0C3",
-    mssv: "2520230049",
+    msv: "2520230049",
     email: "xxx.mah00.1@gmail.com",
   },
   {
     name: "Nguyễn Đăng Hoà",
     avatar: "https://z-p3-scontent.fhan8-1.fna.fbcdn.net/v/t1.15752-9/381254486_1353729198889967_6764637142701603856_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=sr5sWDyV_X8AX8CKg98&_nc_ht=z-p3-scontent.fhan8-1.fna&oh=03_AdQF2Puc686lEcT_N-p58nvwOn9vRx_VRH4cz9uIoZI0-w&oe=6535F682",
-    mssv: "2520220048",
+    msv: "2520220048",
     email: "khubuisim@gmail.com",
   },
   {
     name: "Nguyễn Tuấn Anh",
     avatar:"https://z-p3-scontent.fhan8-1.fna.fbcdn.net/v/t1.15752-9/381297097_619104716794085_8021725525823754283_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=4z9iNlqr_9AAX94gUyF&_nc_ht=z-p3-scontent.fhan8-1.fna&oh=03_AdT7rZFZe4N2yV9M4coRIzDUEtJSOyIQ_3oYHpe1HmclMA&oe=6535EA58",
-    mssv: "2520230146",
+    msv: "2520230146",
     email: "ta392002@gmail.com",
   },
   {
     name: "Nguyễn Đức",
     avatar:"https://z-p3-scontent.fhan8-1.fna.fbcdn.net/v/t1.15752-9/381244402_1054682345539683_8770865088691305126_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=G04PNQt32GsAX93wijf&_nc_ht=z-p3-scontent.fhan8-1.fna&oh=03_AdTxC-gbNqWdsJ6_nMTQ4BoyFiRSRWsftzDv3_zRcTQbmw&oe=6535EC7D",
-    mssv: "2520215169",
+    msv: "2520215169",
     email: "ducnk43@gmail.com",
   },
 ];
