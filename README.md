@@ -1,6 +1,6 @@
-# DỰ ÁN EBOOK.CO
+# DỰ ÁN ABOOK
 
 - Back-End:  
   branch ```/main```
 - Front-End:  
-   branch ```/front-end```. Original repository: https://github.com/hongduccodedao/ban_sach_truc_tuyen
+   branch ```/front-end```.
